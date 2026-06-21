@@ -67,6 +67,7 @@ func show_game_display() -> void:
 func show_news() -> void:
 	hide_all_interface()
 	%news.show()
+	SignalBus.game_pause.emit()
 
 func show_good_news() -> void:
 	hide_all_interface()
@@ -85,6 +86,7 @@ func good_news_selected() -> void:
 		need_good_news = true
 		need_bad_news = true
 		show_game_display()
+		SignalBus.game_resume.emit()
 
 func bad_news_selected() -> void:
 	if need_good_news == true:
@@ -93,6 +95,7 @@ func bad_news_selected() -> void:
 		need_good_news = true
 		need_bad_news = true
 		show_game_display()
+		SignalBus.game_resume.emit()
 
 
 
@@ -104,6 +107,10 @@ func restart_game() -> void:
 	
 	show_game_display()
 	SignalBus.game_start.emit()
+
+func pause_game() -> void:
+	
+	pass
 
 func quit_game() -> void:
 	get_tree().quit()

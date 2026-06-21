@@ -4,6 +4,7 @@ class_name Player
 signal coin_collected
 
 var direction: float = 0.0
+var game_paused: bool = false
 
 @export_category("Stats")
 @export var run_accel: float = 25.0
@@ -20,26 +21,34 @@ var terminal_velocity: float = 1000.0
 @export var sprite: AnimatedSprite2D
 @export var hud: HUD
 
+func _ready() -> void:
+	SignalBus.game_pause.connect(game_pause_resume)
+	SignalBus.game_resume.connect(game_pause_resume)
+	pass
+
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
 	
-	match current_state:
-		states.IDLE:
-			idle()
-		states.RUN:
-			run()
-		states.JUMP:
-			jump()
-		states.FALL:
-			fall()
-		states.HIT:
-			hit()
-		states.DEAD:
-			dead()
-		states.COYOTE:
-			coyote_time_delay()
-	
-	move_and_slide()
+	if game_paused == true:
+		pass
+	else:
+		match current_state:
+			states.IDLE:
+				idle()
+			states.RUN:
+				run()
+			states.JUMP:
+				jump()
+			states.FALL:
+				fall()
+			states.HIT:
+				hit()
+			states.DEAD:
+				dead()
+			states.COYOTE:
+				coyote_time_delay()
+		
+		move_and_slide()
 
 #region State Machine
 
@@ -147,3 +156,6 @@ func take_damage(amount: int) -> void:
 func initialize_player(location: Vector2) -> void:
 	global_position = location
 	_change_state(states.IDLE, "idle")
+
+func game_pause_resume() -> void:
+	game_paused = !game_paused

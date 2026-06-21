@@ -1,10 +1,14 @@
 extends Node
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal player_dead
 
-@warning_ignore("unused_signal")
 signal game_start
+signal game_pause
+signal game_resume
 
-@warning_ignore("unused_signal")
 signal time_out
+
+
+
+@warning_ignore_restore("unused_signal")

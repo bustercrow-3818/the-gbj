@@ -58,6 +58,7 @@ killer_scene = ExtResource("8_4mpmv")
 player = NodePath("../player")
 grid_size = Vector2(640, 640)
 killer_threshold = 2
+pause_duration = 0.05
 
 [node name="coin" parent="object_manager" instance=ExtResource("5_3wf43")]
 position = Vector2(552, 512)
