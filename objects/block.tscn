@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce8rhyfdjfh7c"]
+
+[ext_resource type="Texture2D" uid="uid://c8ehq24papltk" path="res://assets/world_tileset.png" id="1_5tpor"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lylmh"]
+atlas = ExtResource("1_5tpor")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tpor"]
+size = Vector2(32, 32)
+
+[node name="block" type="StaticBody2D" groups=["blocks", "game objects"]]
+collision_layer = 3
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_lylmh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5tpor")

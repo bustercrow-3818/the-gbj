@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://c3rorv2mid2j5"]
+
+[ext_resource type="PackedScene" uid="uid://rs7jc5jasrwg" path="res://player.tscn" id="1_0vpvg"]
+[ext_resource type="Script" uid="uid://b75ufu23jcpvk" path="res://stage/main_room.gd" id="1_u3o0j"]
+[ext_resource type="Script" uid="uid://bsneg4hhnybkw" path="res://stage/object_manager.gd" id="3_ggi10"]
+[ext_resource type="PackedScene" uid="uid://ce8rhyfdjfh7c" path="res://objects/block.tscn" id="4_3wf43"]
+[ext_resource type="PackedScene" uid="uid://bbl8s0bl7h57g" path="res://objects/coin.tscn" id="5_3wf43"]
+[ext_resource type="Script" uid="uid://cksj55bhjke2i" path="res://stage/range_check.gd" id="7_kppmi"]
+[ext_resource type="PackedScene" uid="uid://ct8qbx8kuw51q" path="res://objects/killer.tscn" id="8_4mpmv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kppmi"]
+size = Vector2(840, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mpmv"]
+size = Vector2(100, 840)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vofix"]
+size = Vector2(30, 30)
+
+[node name="main_room" type="Node2D"]
+script = ExtResource("1_u3o0j")
+
+[node name="room_bounds" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="room_bounds_shape" type="Polygon2D" parent="room_bounds"]
+unique_name_in_owner = true
+invert_enabled = true
+polygon = PackedVector2Array(0, 0, 640, 0, 640, 640, 0, 640)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="room_bounds"]
+position = Vector2(320, -50)
+shape = SubResource("RectangleShape2D_kppmi")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="room_bounds"]
+position = Vector2(320, 690)
+shape = SubResource("RectangleShape2D_kppmi")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="room_bounds"]
+position = Vector2(-50, 320)
+shape = SubResource("RectangleShape2D_4mpmv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="room_bounds"]
+position = Vector2(690, 320)
+shape = SubResource("RectangleShape2D_4mpmv")
+
+[node name="player" parent="." instance=ExtResource("1_0vpvg")]
+unique_name_in_owner = true
+position = Vector2(328, 456)
+
+[node name="object_manager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
+script = ExtResource("3_ggi10")
+block_scene = ExtResource("4_3wf43")
+coin_scene = ExtResource("5_3wf43")
+killer_scene = ExtResource("8_4mpmv")
+player = NodePath("../player")
+grid_size = Vector2(640, 640)
+killer_threshold = 2
+
+[node name="coin" parent="object_manager" instance=ExtResource("5_3wf43")]
+position = Vector2(552, 512)
+
+[node name="range_check" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+
+[node name="range_check_new" type="ShapeCast2D" parent="."]
+shape = SubResource("RectangleShape2D_vofix")
+script = ExtResource("7_kppmi")
+check_range = 64.0

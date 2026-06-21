@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct8qbx8kuw51q"]
+
+[ext_resource type="Script" uid="uid://d4j5sk5au8rf5" path="res://objects/killer.gd" id="1_lj4sm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8h70"]
+radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_lj4sm"]
+offsets = PackedFloat32Array(0.6, 0.7266667)
+colors = PackedColorArray(1, 0, 0, 0.45490196, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wb1or"]
+gradient = SubResource("Gradient_lj4sm")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="killer" type="Area2D" groups=["game objects"]]
+script = ExtResource("1_lj4sm")
+damage = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_q8h70")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_wb1or")

@@ -1,0 +1,5 @@
+5/29/26
+Thought I had good working range detection for spawning blocks but when I added in spawning a new coin as well, suddenly both the new coins and the new blocks are spawned way outside the stage bounds. Need to figure out why.
+
+5/30/26 - afternoon
+Fixed crazy offset problem. Blocks and coins now sometimes spawning inside collision objects. Trying to forcibly wait for the while loop in the range checker to finish before deciding to pass along the good location.
