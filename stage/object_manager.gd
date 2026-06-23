@@ -145,6 +145,4 @@ func initialize_grid() -> void:
 			grid_spaces.append(Vector2(x - block_size / 2, y - block_size / 2))
 
 func pause_juice() -> void:
-	SignalBus.game_pause.emit()
-	await get_tree().create_timer(pause_duration).timeout
-	SignalBus.game_resume.emit()
+	SignalBus.player_stun.emit(pause_duration)

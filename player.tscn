@@ -265,7 +265,7 @@ animation = &"run"
 autoplay = "idle"
 frame_progress = 0.82850486
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 
 [node name="debug_msg" type="Label" parent="."]

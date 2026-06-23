@@ -21,10 +21,14 @@ var terminal_velocity: float = 1000.0
 @export var sprite: AnimatedSprite2D
 @export var hud: HUD
 
+@export_category("Juice Numbers")
+@export var break_time_zoom: Vector2 = Vector2(4, 4)
+@export var break_time_duration: float = 3.0
+
 func _ready() -> void:
-	SignalBus.game_pause.connect(game_pause_resume)
-	SignalBus.game_resume.connect(game_pause_resume)
-	pass
+	SignalBus.game_pause.connect(break_time_toggle)
+	SignalBus.game_resume.connect(break_time_toggle)
+	SignalBus.player_stun.connect(stun)
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
@@ -159,3 +163,24 @@ func initialize_player(location: Vector2) -> void:
 
 func game_pause_resume() -> void:
 	game_paused = !game_paused
+
+func break_time_toggle() -> void:
+	if game_paused == false:
+		await zoom_camera(break_time_zoom, 0.25)
+		
+	else:
+		velocity = Vector2.ZERO
+		await zoom_camera(Vector2(1, 1), break_time_duration)
+	
+	game_pause_resume()
+
+func stun(duration: float = 0.0) -> void:
+	game_pause_resume()
+	await get_tree().create_timer(duration).timeout
+	game_pause_resume()
+
+func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0) -> void:
+	var zoom_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	
+	zoom_tween.tween_property(%camera, "zoom", zoom_level, duration)
+	await zoom_tween.finished

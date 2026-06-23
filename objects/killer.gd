@@ -10,4 +10,4 @@ func _ready() -> void:
 func deal_damage(body: Node2D) -> void:
 	if body is Player:
 		body.take_damage(damage)
-		body.velocity *= -recoil
+		body.velocity *= recoil
