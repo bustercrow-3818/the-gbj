@@ -66,7 +66,6 @@ func show_game_over() -> void:
 func show_game_display() -> void:
 	hide_all_interface()
 	%game_display.show()
-	%timer.show()
 
 func show_news() -> void:
 	hide_all_interface()

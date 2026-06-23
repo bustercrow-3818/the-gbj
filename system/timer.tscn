@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bobbbx0fxnydr"]
+
+[node name="timer" type="PanelContainer"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.0
+offset_right = 51.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="time_display" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="game_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="timer_bar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 60.0
+fill_mode = 1
+show_percentage = false

@@ -10,6 +10,7 @@ signal game_resume
 
 signal time_out
 
+signal news_stats_adjusted(_data: Dictionary)
 
 
 @warning_ignore_restore("unused_signal")

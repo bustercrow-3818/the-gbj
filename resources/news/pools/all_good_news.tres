@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="NewsPool" load_steps=3 format=3 uid="uid://bmdsixb7myjrt"]
+
+[ext_resource type="Script" uid="uid://fudv5kypsuig" path="res://resources/news/classes/news_class.gd" id="1_hxs2m"]
+[ext_resource type="Script" uid="uid://dld0caajsamfc" path="res://resources/news/classes/news_pool.gd" id="2_ljylu"]
+
+[resource]
+script = ExtResource("2_ljylu")
+metadata/_custom_type_script = "uid://dld0caajsamfc"

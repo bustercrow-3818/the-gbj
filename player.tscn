@@ -1,8 +1,13 @@
-[gd_scene load_steps=35 format=3 uid="uid://rs7jc5jasrwg"]
+[gd_scene load_steps=37 format=3 uid="uid://rs7jc5jasrwg"]
 
 [ext_resource type="Texture2D" uid="uid://dpjn6i8h3o3ir" path="res://assets/knight.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://c074a03o7p4sn" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://dv8xgu7at6sn1" path="res://resources/stats/movement_stats.gd" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://b6ed5p3mrt3xf" path="res://system/hud.tscn" id="3_i3pqv"]
+
+[sub_resource type="Resource" id="Resource_sweqy"]
+script = ExtResource("2_hqtel")
+metadata/_custom_type_script = "uid://dv8xgu7at6sn1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 8.0
@@ -248,8 +253,7 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud") groups=["player"]]
 script = ExtResource("1_onrkg")
-jump_height_max = 7500.0
-coyote_time = 0.05
+move_stats = SubResource("Resource_sweqy")
 sprite = NodePath("AnimatedSprite2D")
 hud = NodePath("hud")
 
