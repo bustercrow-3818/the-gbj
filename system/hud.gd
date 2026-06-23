@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name HUD
 
 @export var plot_points_per_chapter: int = 10
+@export var player: Player
 
 var current_plot_armor: int = 0
 var current_plot_points: int = 0
@@ -33,6 +34,9 @@ func _process(_delta: float) -> void:
 
 func update_plot_armor(qty: int = 1) -> void:
 	current_plot_armor += qty
+	
+	if current_plot_armor > player.max_plot_armor:
+		current_plot_armor = player.max_plot_armor
 	
 	if current_plot_armor < 0:
 		current_plot_armor = 0

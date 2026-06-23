@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="News" load_steps=2 format=3 uid="uid://c7x501gegp0kj"]
+
+[ext_resource type="Script" uid="uid://fudv5kypsuig" path="res://resources/news_class.gd" id="1_3x2c8"]
+
+[resource]
+script = ExtResource("1_3x2c8")
+jump_height_adjustment = 32.0
+button_text = "You can jump higher now"
+tooltip = "Max jump height increased by one block"
+metadata/_custom_type_script = "uid://fudv5kypsuig"

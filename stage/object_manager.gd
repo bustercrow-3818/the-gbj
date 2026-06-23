@@ -20,7 +20,7 @@ var current_max_height: float = 0
 var current_killer_threshold: int = 0
 
 @export_category("Juice Numbers")
-@export var pause_duration: float = 0.8
+@export var stun_duration: float = 0.8
 
 var live_blocks: Array[StaticBody2D]
 var grid_spaces: Array[Vector2]
@@ -51,10 +51,9 @@ func assign_random_grid_space(body: Node2D, thin_strength: int = 0) -> Vector2:
 	
 	return space
 
+
+
 func create_block(qty: int = 1, spawn_coin: bool = true, spawn_killer: bool = true) -> void:
-	#var new_block: StaticBody2D = block_scene.instantiate()
-	#var random_grid_space: Vector2 = assign_random_grid_space(new_block, thinning_strength)
-	
 	for i in qty:
 		var new_block: StaticBody2D = block_scene.instantiate()
 		var random_grid_space: Vector2 = assign_random_grid_space(new_block, thinning_strength)
@@ -72,7 +71,7 @@ func create_block(qty: int = 1, spawn_coin: bool = true, spawn_killer: bool = tr
 		if current_killer_threshold == killer_threshold:
 			create_killer()
 	
-	pause_juice()
+	stun_juice()
 	
 func create_coin() -> void:
 	var new_coin: Coin = coin_scene.instantiate()
@@ -130,7 +129,9 @@ func reset_arena() -> void:
 	live_blocks.clear()
 	
 	for i in get_tree().get_nodes_in_group("game objects"):
+		SignalBus.player_stun.emit(stun_duration)
 		i.queue_free()
+		await get_tree().create_timer(stun_duration).timeout
 		
 	initialize_grid()
 	
@@ -144,5 +145,5 @@ func initialize_grid() -> void:
 		for y in range(current_max_height, current_max_height - vertical_block_limit * block_size, -block_size):
 			grid_spaces.append(Vector2(x - block_size / 2, y - block_size / 2))
 
-func pause_juice() -> void:
-	SignalBus.player_stun.emit(pause_duration)
+func stun_juice() -> void:
+	SignalBus.player_stun.emit(stun_duration)

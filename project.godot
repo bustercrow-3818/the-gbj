@@ -16,12 +16,13 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-SignalBus="*res://signal_bus.gd"
+SignalBus="*res://system/signal_bus.gd"
 
 [global_group]
 
 blocks=""
 "game objects"=""
+player=""
 
 [input]
 

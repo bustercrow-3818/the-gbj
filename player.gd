@@ -17,6 +17,9 @@ var terminal_velocity: float = 1000.0
 @export var coyote_time: float = 0.5
 @export var fall_speed: float = 50.0
 
+@export_category("Other Stats")
+@export var max_plot_armor: int = 10
+
 @export_category("Node References")
 @export var sprite: AnimatedSprite2D
 @export var hud: HUD
@@ -24,6 +27,7 @@ var terminal_velocity: float = 1000.0
 @export_category("Juice Numbers")
 @export var break_time_zoom: Vector2 = Vector2(4, 4)
 @export var break_time_duration: float = 3.0
+@export var respawn_slide_time: float = 0.1
 
 func _ready() -> void:
 	SignalBus.game_pause.connect(break_time_toggle)
@@ -158,8 +162,13 @@ func take_damage(amount: int) -> void:
 	hud.update_plot_armor(-amount)
 
 func initialize_player(location: Vector2) -> void:
-	global_position = location
+	var spawn_tween: Tween = create_tween()
+	
+	spawn_tween.tween_property(self, "global_position", location, respawn_slide_time)
 	_change_state(states.IDLE, "idle")
+	game_pause_resume()
+	await spawn_tween.finished
+	game_pause_resume()
 
 func game_pause_resume() -> void:
 	game_paused = !game_paused
