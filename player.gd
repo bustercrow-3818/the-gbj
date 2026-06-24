@@ -1,11 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
-signal coin_collected
-
 var direction: float = 0.0
 var game_paused: bool = false
+var stunned: bool = false
 
+#region Export variables
 @export_category("Stats")
 @export var move_stats: MovementStats
 var current_jump_height: float = 0
@@ -17,11 +17,16 @@ var terminal_velocity: float = 1000.0
 @export_category("Node References")
 @export var sprite: AnimatedSprite2D
 @export var hud: HUD
+@export var camera: Camera2D
 
 @export_category("Juice Numbers")
 @export var break_time_zoom: Vector2 = Vector2(4, 4)
 @export var break_time_duration: float = 3.0
 @export var respawn_slide_time: float = 0.1
+
+
+
+#endregion
 
 func _ready() -> void:
 	SignalBus.round_ended.connect(break_time_toggle)
@@ -31,7 +36,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
 	
-	if game_paused == true:
+	if game_paused == true or stunned == true:
 		pass
 	else:
 		match current_state:
@@ -135,11 +140,6 @@ func horizontal_motion() -> void:
 		velocity.x = move_toward(velocity.x, move_stats.run_speed_max * direction, move_stats.run_accel)
 #endregion
 
-func collect_coin() -> void:
-	hud.update_plot_points()
-	hud.update_plot_armor()
-	coin_collected.emit()
-
 func take_damage(amount: int) -> void:
 	if hud.current_plot_armor == 0:
 		velocity.x = 0
@@ -161,22 +161,28 @@ func game_pause_resume() -> void:
 	game_paused = !game_paused
 
 func break_time_toggle() -> void:
+	var zoom: Vector2
+	var duration: float
+	
 	if game_paused == false:
-		await zoom_camera(break_time_zoom, 0.25)
+		zoom = break_time_zoom
+		duration = 0.25
 		
 	else:
 		velocity = Vector2.ZERO
-		await zoom_camera(Vector2(1, 1), break_time_duration)
+		zoom = Vector2(1, 1)
+		duration = break_time_duration
 	
 	game_pause_resume()
+	zoom_camera(zoom, duration)
 
 func stun(duration: float = 0.0) -> void:
-	game_pause_resume()
+	stunned = true
 	await get_tree().create_timer(duration).timeout
-	game_pause_resume()
+	stunned = false
 
 func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0) -> void:
 	var zoom_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	
-	zoom_tween.tween_property(%camera, "zoom", zoom_level, duration)
+	zoom_tween.tween_property(camera, "zoom", zoom_level, duration)
 	await zoom_tween.finished

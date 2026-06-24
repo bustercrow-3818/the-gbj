@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf5mkaunb4poo"]
+
+[ext_resource type="Script" uid="uid://ewadbr4xqocb" path="res://system/alternate_news_system/bad_news/more_pain.gd" id="1_32nwb"]
+
+[node name="more_pain" type="Node"]
+script = ExtResource("1_32nwb")
+button_text = "Things hurt more..."
+tooltip = "Hazards deal +1 damage to plot armor"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

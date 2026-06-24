@@ -252,11 +252,12 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud") groups=["player"]]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud", "camera") groups=["player"]]
 script = ExtResource("1_onrkg")
 move_stats = SubResource("Resource_sweqy")
 sprite = NodePath("AnimatedSprite2D")
 hud = NodePath("hud")
+camera = NodePath("camera")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)

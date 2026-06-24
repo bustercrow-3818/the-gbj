@@ -6,5 +6,5 @@ func _ready() -> void:
 
 func collect(body: Node2D) -> void:
 	if body is Player:
-		body.collect_coin()
+		SignalBus.coin_collected.emit()
 		queue_free()

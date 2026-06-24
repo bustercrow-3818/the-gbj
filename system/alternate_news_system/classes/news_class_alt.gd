@@ -7,8 +7,6 @@ class_name NewsAlt
 var player: Player
 
 func _ready() -> void:
-	print("Trying to find player node")
-	print("%s" % str(get_tree().get_first_node_in_group("player").name))
 	player = get_tree().get_first_node_in_group("player")
 
 func initialize_news() -> void:

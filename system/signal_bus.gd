@@ -4,6 +4,8 @@ extends Node
 signal player_dead
 signal player_stun(duration: float)
 
+signal coin_collected
+
 signal game_start
 signal game_pause
 signal game_resume

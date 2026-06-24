@@ -12,6 +12,8 @@ var need_good_news: bool = true
 var need_bad_news: bool = true
 
 func _ready() -> void:
+	SignalBus.coin_collected.connect(update_plot_armor)
+	SignalBus.coin_collected.connect(update_plot_points)
 	SignalBus.player_dead.connect(show_game_over)
 	%quit_button.pressed.connect(quit_game)
 	%restart_button.pressed.connect(restart_game)

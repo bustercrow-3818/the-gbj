@@ -25,6 +25,7 @@ var current_killer_threshold: int = 0
 var live_blocks: Array[StaticBody2D]
 var grid_spaces: Array[Vector2]
 var occupied_grid_spaces: Array[Vector2]
+var skip_stun: bool = false
 
 func _ready() -> void:
 	initialize_grid()
@@ -34,6 +35,9 @@ func _ready() -> void:
 		live_blocks.append(i)
 	
 	SignalBus.game_start.connect(reset_arena)
+	SignalBus.coin_collected.connect(create_block)
+	SignalBus.round_ended.connect(skip_next_stun)
+	
 	await player.ready
 	player.initialize_player(assign_random_grid_space(player))
 
@@ -65,6 +69,8 @@ func create_block(qty: int = 1, spawn_coin: bool = true, spawn_killer: bool = tr
 		new_block.global_position = random_grid_space
 		add_vertical_layer(random_grid_space)
 	
+	stun_juice()
+	
 	if spawn_coin == true:
 		create_coin()
 	
@@ -72,8 +78,6 @@ func create_block(qty: int = 1, spawn_coin: bool = true, spawn_killer: bool = tr
 		current_killer_threshold += 1
 		if current_killer_threshold == killer_threshold:
 			create_killer()
-	
-	stun_juice()
 	
 func create_coin() -> void:
 	var new_coin: Coin = coin_scene.instantiate()
@@ -149,3 +153,6 @@ func initialize_grid() -> void:
 
 func stun_juice() -> void:
 	SignalBus.player_stun.emit(stun_duration)
+
+func skip_next_stun() -> void:
+	skip_stun = true
