@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba7762f5ivtwn"]
+
+[ext_resource type="Script" uid="uid://2m83ou7km0eb" path="res://system/alternate_news_system/classes/news_class_alt.gd" id="1_3pk80"]
+
+[node name="no_news" type="Node"]
+script = ExtResource("1_3pk80")
+button_text = "No news"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

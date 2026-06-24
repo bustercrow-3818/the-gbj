@@ -26,9 +26,6 @@ func _ready() -> void:
 	for button in %bad_news_choices.get_children():
 		if button is Button:
 			button.pressed.connect(bad_news_selected)
-	
-func _process(_delta: float) -> void:
-	%timer_bar.value = %game_timer.time_left
 
 
 
@@ -70,7 +67,7 @@ func show_game_display() -> void:
 func show_news() -> void:
 	hide_all_interface()
 	%news.show()
-	SignalBus.game_pause.emit()
+	SignalBus.round_ended.emit()
 
 func show_good_news() -> void:
 	hide_all_interface()

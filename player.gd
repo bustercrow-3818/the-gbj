@@ -24,7 +24,7 @@ var terminal_velocity: float = 1000.0
 @export var respawn_slide_time: float = 0.1
 
 func _ready() -> void:
-	SignalBus.game_pause.connect(break_time_toggle)
+	SignalBus.round_ended.connect(break_time_toggle)
 	SignalBus.game_resume.connect(break_time_toggle)
 	SignalBus.player_stun.connect(stun)
 
@@ -43,8 +43,6 @@ func _physics_process(_delta: float) -> void:
 				jump()
 			states.FALL:
 				fall()
-			states.HIT:
-				hit()
 			states.DEAD:
 				dead()
 			states.COYOTE:
@@ -77,6 +75,7 @@ func idle(_data: Dictionary = {}) -> void:
 		_change_state(states.RUN, "run")
 	elif Input.is_action_just_pressed("jump"):
 		velocity.y -= move_stats.jump_speed
+		velocity.x *= 0.5
 		_change_state(states.JUMP, "jump")
 	elif is_on_floor() == false:
 		_change_state(states.COYOTE, "idle")
@@ -91,7 +90,6 @@ func run(_data: Dictionary = {}) -> void:
 	elif Input.is_action_just_pressed("jump"):
 		velocity.y -= move_stats.jump_speed
 		_change_state(states.JUMP, "jump")
-	
 	
 func jump(_data: Dictionary = {}) -> void:
 	current_jump_height = move_toward(current_jump_height, move_stats.jump_height_max, move_stats.jump_speed)
@@ -110,10 +108,6 @@ func fall(_data: Dictionary = {}) -> void:
 	if is_on_floor():
 		current_jump_height = 0
 		_change_state(states.IDLE, "idle")
-	
-func hit(_data: Dictionary = {}) -> void:
-	
-	pass
 
 func dead(_data: Dictionary = {}) -> void:
 	if velocity.y < terminal_velocity:
@@ -124,6 +118,8 @@ func coyote_time_delay(_data: Dictionary = {}) -> void:
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y -= move_stats.jump_speed
+		if direction == 0:
+			velocity.x *= 0.5
 		_change_state(states.JUMP, "jump")
 	elif current_state != states.DEAD:
 		await get_tree().create_timer(move_stats.coyote_time).timeout
@@ -137,9 +133,6 @@ func horizontal_motion() -> void:
 	
 	if velocity.x != move_stats.run_speed_max * direction:
 		velocity.x = move_toward(velocity.x, move_stats.run_speed_max * direction, move_stats.run_accel)
-
-
-
 #endregion
 
 func collect_coin() -> void:

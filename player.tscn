@@ -2,12 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://dpjn6i8h3o3ir" path="res://assets/knight.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://c074a03o7p4sn" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Script" uid="uid://dv8xgu7at6sn1" path="res://resources/stats/movement_stats.gd" id="2_hqtel"]
+[ext_resource type="Script" uid="uid://darupaa6i70dp" path="res://resources/news/classes/movement_stats.gd" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://b6ed5p3mrt3xf" path="res://system/hud.tscn" id="3_i3pqv"]
 
 [sub_resource type="Resource" id="Resource_sweqy"]
 script = ExtResource("2_hqtel")
-metadata/_custom_type_script = "uid://dv8xgu7at6sn1"
+coyote_time = 0.05
+metadata/_custom_type_script = "uid://darupaa6i70dp"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 8.0
@@ -282,4 +283,5 @@ offset_bottom = -41.0
 text = "temp"
 
 [node name="hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_i3pqv")]
+plot_points_per_chapter = 10
 player = NodePath("..")

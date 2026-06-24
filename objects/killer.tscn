@@ -18,7 +18,7 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="killer" type="Area2D" groups=["game objects"]]
 script = ExtResource("1_lj4sm")
-damage = 2
+damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

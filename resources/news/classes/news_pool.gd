@@ -1,4 +1,4 @@
 extends Resource
 class_name NewsPool
 
-@export var news: Array[News]
+@export var news: Array[PackedScene]

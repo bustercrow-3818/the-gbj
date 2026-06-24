@@ -1,6 +1,13 @@
 [gd_scene load_steps=2 format=3 uid="uid://cswtlj0x7heg6"]
 
-[ext_resource type="Script" uid="uid://lmcr7pnyeiwn" path="res://news_manager.gd" id="1_fyd0x"]
+[sub_resource type="GDScript" id="GDScript_ibc7e"]
+script/source = "extends Node
+class_name NewsManager
+
+@export_category(\"News Pools\")
+@export var good_news_pool: NewsPool
+@export var bad_news_pool: NewsPool
+"
 
 [node name="news_manager" type="Node"]
-script = ExtResource("1_fyd0x")
+script = SubResource("GDScript_ibc7e")

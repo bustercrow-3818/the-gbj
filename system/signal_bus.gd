@@ -7,6 +7,7 @@ signal player_stun(duration: float)
 signal game_start
 signal game_pause
 signal game_resume
+signal round_ended
 
 signal time_out
 

@@ -34,6 +34,8 @@ func _ready() -> void:
 		live_blocks.append(i)
 	
 	SignalBus.game_start.connect(reset_arena)
+	await player.ready
+	player.initialize_player(assign_random_grid_space(player))
 
 func assign_random_grid_space(body: Node2D, thin_strength: int = 0) -> Vector2:
 	var space: Vector2 = grid_spaces.pick_random()

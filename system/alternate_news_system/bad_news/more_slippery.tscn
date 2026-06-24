@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlwyqta6jwitt"]
+
+[ext_resource type="Script" uid="uid://cubpx2wntpmw8" path="res://system/alternate_news_system/bad_news/more_slippery.gd" id="1_iqctw"]
+
+[node name="more_slippery" type="Node"]
+script = ExtResource("1_iqctw")
+friction_coefficient = 0.33
+minimum_accel_decel = 1.0
+button_text = "Everything is more slippery..."
+tooltip = "Movement acceleration and deceleration decreased."
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

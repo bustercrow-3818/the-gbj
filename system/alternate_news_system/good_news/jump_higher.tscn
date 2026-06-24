@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjn4q7rv8ajsr"]
+
+[ext_resource type="Script" uid="uid://cy0xf507wywes" path="res://system/alternate_news_system/good_news/jump_higher.gd" id="1_1icih"]
+
+[node name="jump_higher" type="Node"]
+script = ExtResource("1_1icih")
+jump_height_bonus = 0.0
+jump_height_multiplier = 1.25
+button_text = "You can jump higher now!"
+tooltip = "Max jump height increased by one block"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="NewsPool" load_steps=3 format=3 uid="uid://bmdsixb7myjrt"]
+[gd_resource type="Resource" script_class="NewsPool" load_steps=4 format=3 uid="uid://bmdsixb7myjrt"]
 
-[ext_resource type="Script" uid="uid://fudv5kypsuig" path="res://resources/news/classes/news_class.gd" id="1_hxs2m"]
+[ext_resource type="PackedScene" uid="uid://cjn4q7rv8ajsr" path="res://system/alternate_news_system/good_news/jump_higher.tscn" id="1_hxs2m"]
+[ext_resource type="PackedScene" uid="uid://ba7762f5ivtwn" path="res://system/alternate_news_system/no_news.tscn" id="2_4yhpu"]
 [ext_resource type="Script" uid="uid://dld0caajsamfc" path="res://resources/news/classes/news_pool.gd" id="2_ljylu"]
 
 [resource]
 script = ExtResource("2_ljylu")
+news = Array[PackedScene]([ExtResource("1_hxs2m"), ExtResource("2_4yhpu"), ExtResource("2_4yhpu")])
 metadata/_custom_type_script = "uid://dld0caajsamfc"
