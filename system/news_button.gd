@@ -5,6 +5,7 @@ class_name GoodNewsButton
 
 var news: NewsAlt
 var player: Player
+var current_behavior: HazardBehavior
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -24,3 +25,6 @@ func set_button_text() -> void:
 
 func _pressed() -> void:
 	news.pickup_effect()
+
+func set_hazard_reference(behavior: HazardBehavior) -> void:
+	current_behavior = behavior

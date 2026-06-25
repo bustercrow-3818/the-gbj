@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DangerZoneBehavior" load_steps=2 format=3 uid="uid://jjknb348oktw"]
+
+[ext_resource type="Script" uid="uid://belg1oj1ofdea" path="res://objects/resources/hazard_behaviors/danger_zone_behavior.gd" id="1_u1jgc"]
+
+[resource]
+script = ExtResource("1_u1jgc")
+metadata/_custom_type_script = "uid://belg1oj1ofdea"

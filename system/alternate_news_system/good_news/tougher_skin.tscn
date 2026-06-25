@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp32uammdtupt"]
+
+[ext_resource type="Script" uid="uid://g2eg3jfvy3tp" path="res://tougher_skin.gd" id="1_3j2n6"]
+
+[node name="tougher_skin" type="Node"]
+script = ExtResource("1_3j2n6")
+button_text = "Your effort will be rewarded!"
+tooltip = "Increased maximum plot armor."
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

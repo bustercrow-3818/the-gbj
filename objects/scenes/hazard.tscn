@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi7plrtyxjpce"]
+
+[ext_resource type="Script" uid="uid://sv4obnspy8ey" path="res://objects/classes/hazard_class.gd" id="1_g2ne3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mxhnc"]
+radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_lj4sm"]
+offsets = PackedFloat32Array(0.6, 0.7266667)
+colors = PackedColorArray(1, 0, 0, 0.45490196, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7fekj"]
+gradient = SubResource("Gradient_lj4sm")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="hazard" type="Area2D" groups=["game objects"]]
+script = ExtResource("1_g2ne3")
+metadata/_custom_type_script = "uid://sv4obnspy8ey"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mxhnc")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_7fekj")

@@ -13,6 +13,8 @@ var terminal_velocity: float = 1000.0
 
 @export_category("Other Stats")
 @export var max_plot_armor: int = 10
+var current_max_plot_armor: int = 10
+var current_plot_armor: int = 0
 
 @export_category("Node References")
 @export var sprite: AnimatedSprite2D
@@ -32,6 +34,7 @@ func _ready() -> void:
 	SignalBus.round_ended.connect(break_time_toggle)
 	SignalBus.game_resume.connect(break_time_toggle)
 	SignalBus.player_stun.connect(stun)
+	SignalBus.coin_collected.connect(on_coin_collected)
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
@@ -141,22 +144,32 @@ func horizontal_motion() -> void:
 #endregion
 
 func take_damage(amount: int) -> void:
-	if hud.current_plot_armor == 0:
+	current_plot_armor -= amount
+	
+	if current_plot_armor == 0:
 		velocity.x = 0
 		_change_state(states.DEAD, "dead")
 		SignalBus.player_dead.emit()
 	
-	hud.update_plot_armor(-amount)
+	SignalBus.player_damaged.emit(-amount)
+
+func on_coin_collected() -> void:
+	if current_plot_armor < current_max_plot_armor:
+		current_plot_armor += 1
 
 func initialize_player(location: Vector2) -> void:
 	var spawn_tween: Tween = create_tween()
 	
+	current_plot_armor = 0
+	current_max_plot_armor = max_plot_armor
 	spawn_tween.tween_property(self, "global_position", location, respawn_slide_time)
 	_change_state(states.IDLE, "idle")
+	
 	game_pause_resume()
 	await spawn_tween.finished
 	game_pause_resume()
 
+#region VFX
 func game_pause_resume() -> void:
 	game_paused = !game_paused
 
@@ -186,3 +199,6 @@ func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0)
 	
 	zoom_tween.tween_property(camera, "zoom", zoom_level, duration)
 	await zoom_tween.finished
+
+
+#endregion

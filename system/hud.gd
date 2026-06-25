@@ -15,6 +15,7 @@ func _ready() -> void:
 	SignalBus.coin_collected.connect(update_plot_armor)
 	SignalBus.coin_collected.connect(update_plot_points)
 	SignalBus.player_dead.connect(show_game_over)
+	SignalBus.player_damaged.connect(update_plot_armor)
 	%quit_button.pressed.connect(quit_game)
 	%restart_button.pressed.connect(restart_game)
 	
@@ -99,20 +100,12 @@ func bad_news_selected() -> void:
 		show_game_display()
 		SignalBus.game_resume.emit()
 
-
-
 func restart_game() -> void:
-	%timer_bar.max_value = %game_timer.wait_time
-	%timer_bar.value = 0
 	update_plot_armor(-current_plot_armor)
 	update_plot_points(-current_plot_points)
 	
 	show_game_display()
 	SignalBus.game_start.emit()
-
-func pause_game() -> void:
-	
-	pass
 
 func quit_game() -> void:
 	get_tree().quit()

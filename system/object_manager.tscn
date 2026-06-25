@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfwdlp4c2edeh"]
+
+[ext_resource type="Script" uid="uid://bsneg4hhnybkw" path="res://stage/object_manager.gd" id="1_7a4e8"]
+[ext_resource type="PackedScene" uid="uid://ce8rhyfdjfh7c" path="res://objects/scenes/block.tscn" id="2_hxheb"]
+[ext_resource type="PackedScene" uid="uid://bbl8s0bl7h57g" path="res://objects/scenes/coin.tscn" id="3_veulj"]
+[ext_resource type="PackedScene" uid="uid://bi7plrtyxjpce" path="res://objects/scenes/hazard.tscn" id="4_bxfn5"]
+[ext_resource type="Script" uid="uid://belg1oj1ofdea" path="res://objects/resources/hazard_behaviors/danger_zone_behavior.gd" id="5_qogci"]
+
+[sub_resource type="Resource" id="Resource_4mpmv"]
+script = ExtResource("5_qogci")
+metadata/_custom_type_script = "uid://belg1oj1ofdea"
+
+[node name="object_manager" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_7a4e8")
+block_scene = ExtResource("2_hxheb")
+coin_scene = ExtResource("3_veulj")
+hazard_scene = ExtResource("4_bxfn5")
+player = NodePath("")
+hazard_behavior = SubResource("Resource_4mpmv")
+grid_size = Vector2(640, 640)
+killer_threshold = 2
+stun_duration = 0.035
+
+[node name="coin" parent="." instance=ExtResource("3_veulj")]
+position = Vector2(552, 512)

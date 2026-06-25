@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3rorv2mid2j5"]
+[gd_scene load_steps=6 format=3 uid="uid://c3rorv2mid2j5"]
 
 [ext_resource type="PackedScene" uid="uid://rs7jc5jasrwg" path="res://player.tscn" id="1_0vpvg"]
 [ext_resource type="Script" uid="uid://b75ufu23jcpvk" path="res://stage/main_room.gd" id="1_u3o0j"]
-[ext_resource type="Script" uid="uid://bsneg4hhnybkw" path="res://stage/object_manager.gd" id="3_ggi10"]
-[ext_resource type="PackedScene" uid="uid://ce8rhyfdjfh7c" path="res://objects/block.tscn" id="4_3wf43"]
-[ext_resource type="PackedScene" uid="uid://bbl8s0bl7h57g" path="res://objects/coin.tscn" id="5_3wf43"]
-[ext_resource type="PackedScene" uid="uid://ct8qbx8kuw51q" path="res://objects/killer.tscn" id="8_4mpmv"]
+[ext_resource type="PackedScene" uid="uid://bfwdlp4c2edeh" path="res://system/object_manager.tscn" id="2_1pcwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kppmi"]
 size = Vector2(840, 100)
@@ -41,19 +38,10 @@ shape = SubResource("RectangleShape2D_4mpmv")
 position = Vector2(690, 320)
 shape = SubResource("RectangleShape2D_4mpmv")
 
-[node name="object_manager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+[node name="object_manager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1pcwl")]
 unique_name_in_owner = true
-script = ExtResource("3_ggi10")
-block_scene = ExtResource("4_3wf43")
-coin_scene = ExtResource("5_3wf43")
-killer_scene = ExtResource("8_4mpmv")
 player = NodePath("../player")
-grid_size = Vector2(640, 640)
-killer_threshold = 2
-stun_duration = 0.035
-
-[node name="coin" parent="object_manager" instance=ExtResource("5_3wf43")]
-position = Vector2(552, 512)
+hazard_threshold = 2
 
 [node name="player" parent="." instance=ExtResource("1_0vpvg")]
 break_time_duration = 2.0
