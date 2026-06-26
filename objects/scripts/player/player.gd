@@ -202,3 +202,7 @@ func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0)
 
 
 #endregion
+
+func info_request(_request_name: StringName, _info: Dictionary) -> void:
+	
+	pass

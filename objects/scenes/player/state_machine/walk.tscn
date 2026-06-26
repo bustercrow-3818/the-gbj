@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c25nabexb6gfk"]
+
+[ext_resource type="Script" uid="uid://bhyvtax02hhju" path="res://objects/scenes/player/state_machine/walk.gd" id="1_y7k68"]
+
+[node name="Walk" type="Node"]
+script = ExtResource("1_y7k68")
+metadata/_custom_type_script = "uid://hkjby0l0rtl1"

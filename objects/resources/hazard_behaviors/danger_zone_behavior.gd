@@ -10,7 +10,5 @@ func set_stats_to_default() -> void:
 	damage = base_damage
 
 func collision_effect(_body: Node2D) -> void:
-	print("hazard behavior effect")
 	if _body is Player:
-		print("found player. dealing %s damage" % str(damage))
 		_body.take_damage(damage)
