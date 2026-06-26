@@ -1,7 +1,40 @@
 [gd_scene load_steps=2 format=3 uid="uid://sxbsmjd4b1mb"]
 
-[ext_resource type="Script" uid="uid://d76piq6cj4hg" path="res://objects/classes/state_machine_class.gd" id="1_b5rnf"]
+[sub_resource type="GDScript" id="GDScript_tvetc"]
+script/source = "extends Node
+class_name StateMachine
+
+@export var default_state: State
+@export var entity: CharacterBody2D
+
+@onready var current_state: State = default_state
+
+var player_stats: MovementStats
+var states: Dictionary[StringName, State]
+
+func _ready() -> void:
+	if get_parent().movement_stats == true:
+		player_stats = get_parent().movement_stats
+	
+	for i in get_children():
+		if i is State:
+			print(\"registered %s as %s\" % [str(i), i.name])
+			states[i.name] = i
+			i.change_state.connect(_change_state)
+			i.entity = entity
+			i.initialize_state()
+
+func _process(delta: float) -> void:
+	current_state.state_process(delta)
+	
+func _physics_process(delta: float) -> void:
+	current_state.state_physics(delta)
+
+func _change_state(_new_state: StringName, _data: Dictionary = {}) -> void:
+	current_state = states[_new_state]
+	current_state.enter_state()
+"
 
 [node name="player_state_machine" type="Node"]
-script = ExtResource("1_b5rnf")
+script = SubResource("GDScript_tvetc")
 metadata/_custom_type_script = "uid://d76piq6cj4hg"

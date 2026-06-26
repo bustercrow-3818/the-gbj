@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx2dxnui01gd0"]
+
+[ext_resource type="Script" uid="uid://7mqxlcvpjakm" path="res://components/state_machine/universal_states/walk.gd" id="1_hx8xo"]
+
+[node name="walk" type="Node2D"]
+script = ExtResource("1_hx8xo")
+metadata/_custom_type_script = "uid://bvaathlf0j4y6"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlf2hvflnf4e4"]
+
+[ext_resource type="Script" uid="uid://1h3vvt51qd3q" path="res://components/state_machine/universal_states/dead.gd" id="1_u1c2m"]
+
+[node name="dead" type="Node2D"]
+script = ExtResource("1_u1c2m")
+metadata/_custom_type_script = "uid://bvaathlf0j4y6"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd5nhbro4djce"]
+
+[ext_resource type="Script" uid="uid://o0daon0jbecc" path="res://components/state_machine/universal_states/fall.gd" id="1_4r7jo"]
+
+[node name="fall" type="Node2D"]
+script = ExtResource("1_4r7jo")
+metadata/_custom_type_script = "uid://bvaathlf0j4y6"

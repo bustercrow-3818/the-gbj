@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b77ov4sklikxr"]
+
+[ext_resource type="Script" uid="uid://1mnu2dg280yl" path="res://components/state_machine/universal_states/jump.gd" id="1_c31mb"]
+
+[node name="jump" type="Node2D"]
+script = ExtResource("1_c31mb")
+metadata/_custom_type_script = "uid://bvaathlf0j4y6"

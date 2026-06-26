@@ -122,7 +122,7 @@ func dead(_data: Dictionary = {}) -> void:
 		velocity.y += move_stats.fall_speed
 
 func coyote_time_delay(_data: Dictionary = {}) -> void:
-	horizontal_motion()
+	#horizontal_motion()
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y -= move_stats.jump_speed
@@ -133,14 +133,18 @@ func coyote_time_delay(_data: Dictionary = {}) -> void:
 		await get_tree().create_timer(move_stats.coyote_time).timeout
 		_change_state(states.FALL, "fall")
 
-func horizontal_motion() -> void:
-	if direction < 0:
+func horizontal_motion(_dir: float) -> void:
+	if _dir < 0:
 		sprite.flip_h = true
-	elif direction > 0:
+	elif _dir > 0:
 		sprite.flip_h = false
 	
-	if velocity.x != move_stats.run_speed_max * direction:
-		velocity.x = move_toward(velocity.x, move_stats.run_speed_max * direction, move_stats.run_accel)
+	if velocity.x != move_stats.run_speed_max * _dir:
+		velocity.x = move_toward(velocity.x, move_stats.run_speed_max * _dir, move_stats.run_accel)
+
+func gravity() -> void:
+	
+	pass
 #endregion
 
 func take_damage(amount: int) -> void:
