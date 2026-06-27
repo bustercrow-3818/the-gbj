@@ -42,6 +42,8 @@ func _physics_process(_delta: float) -> void:
 	if game_paused == true or stunned == true:
 		pass
 	else:
+		gravity()
+		
 		match current_state:
 			states.IDLE:
 				idle()
@@ -89,7 +91,7 @@ func idle(_data: Dictionary = {}) -> void:
 		_change_state(states.COYOTE, "idle")
 
 func run(_data: Dictionary = {}) -> void:
-	horizontal_motion()
+	horizontal_motion(direction)
 	
 	if direction == 0:
 		_change_state(states.IDLE, "idle")
@@ -100,29 +102,26 @@ func run(_data: Dictionary = {}) -> void:
 		_change_state(states.JUMP, "jump")
 	
 func jump(_data: Dictionary = {}) -> void:
-	current_jump_height = move_toward(current_jump_height, move_stats.jump_height_max, move_stats.jump_speed)
-	horizontal_motion()
+	#current_jump_height = move_toward(current_jump_height, move_stats.jump_height_max, move_stats.jump_speed)
+	gravity()
+	horizontal_motion(direction)
 	
 	if current_jump_height == move_stats.jump_height_max or Input.is_action_just_released("jump") or is_on_ceiling():
-		current_jump_height = 0
 		_change_state(states.FALL, "fall")
 
 func fall(_data: Dictionary = {}) -> void:
-	horizontal_motion()
+	gravity()
+	horizontal_motion(direction)
 	
-	if velocity.y < terminal_velocity:
-		velocity.y += move_stats.fall_speed
-		
 	if is_on_floor():
 		current_jump_height = 0
 		_change_state(states.IDLE, "idle")
 
 func dead(_data: Dictionary = {}) -> void:
-	if velocity.y < terminal_velocity:
-		velocity.y += move_stats.fall_speed
+	gravity()
 
 func coyote_time_delay(_data: Dictionary = {}) -> void:
-	#horizontal_motion()
+	horizontal_motion(direction)
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y -= move_stats.jump_speed
@@ -143,8 +142,8 @@ func horizontal_motion(_dir: float) -> void:
 		velocity.x = move_toward(velocity.x, move_stats.run_speed_max * _dir, move_stats.run_accel)
 
 func gravity() -> void:
-	
-	pass
+	if velocity.y < terminal_velocity:
+		velocity.y += move_stats.fall_speed
 #endregion
 
 func take_damage(amount: int) -> void:
