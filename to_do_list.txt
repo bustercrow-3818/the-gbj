@@ -1,0 +1,9 @@
+Finish decoupling hud from player and rename to ui_manager
+
+Finish overhaul to jump mechanics
+
+Create main menu
+
+Remove state machine from player script and implement as separate component
+
+Remove all variables and methods related to plot armor from player script and implement as a Resource

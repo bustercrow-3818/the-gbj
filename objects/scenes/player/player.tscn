@@ -1,12 +1,14 @@
-[gd_scene load_steps=37 format=3 uid="uid://rs7jc5jasrwg"]
+[gd_scene load_steps=38 format=3 uid="uid://rs7jc5jasrwg"]
 
 [ext_resource type="Texture2D" uid="uid://dpjn6i8h3o3ir" path="res://assets/knight.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://c074a03o7p4sn" path="res://objects/scripts/player/player.gd" id="1_onrkg"]
 [ext_resource type="Script" uid="uid://darupaa6i70dp" path="res://resources/news/classes/movement_stats.gd" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://b6ed5p3mrt3xf" path="res://system/hud.tscn" id="3_i3pqv"]
+[ext_resource type="PackedScene" uid="uid://bwce1bk7kykxt" path="res://components/player_state_machine.tscn" id="5_8odfe"]
 
 [sub_resource type="Resource" id="Resource_sweqy"]
 script = ExtResource("2_hqtel")
+jump_speed = 1000.0
 coyote_time = 0.05
 metadata/_custom_type_script = "uid://darupaa6i70dp"
 
@@ -252,12 +254,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud", "camera") groups=["player"]]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud", "camera", "jump_time") groups=["player"]]
 script = ExtResource("1_onrkg")
 move_stats = SubResource("Resource_sweqy")
 sprite = NodePath("AnimatedSprite2D")
 hud = NodePath("hud")
 camera = NodePath("camera")
+jump_time = NodePath("jump_time")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -286,3 +289,14 @@ text = "temp"
 [node name="hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_i3pqv")]
 plot_points_per_chapter = 10
 player = NodePath("..")
+
+[node name="jump_time" type="Timer" parent="."]
+one_shot = true
+
+[node name="stun_time" type="Timer" parent="."]
+one_shot = true
+
+[node name="player_state_machine" parent="." node_paths=PackedStringArray("jump_time", "stun_time") instance=ExtResource("5_8odfe")]
+move_stats = SubResource("Resource_sweqy")
+jump_time = NodePath("../jump_time")
+stun_time = NodePath("../stun_time")
