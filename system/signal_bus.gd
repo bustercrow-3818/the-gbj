@@ -6,6 +6,8 @@ signal player_dead
 signal player_stun(duration: float)
 signal player_ready
 
+signal plot_armor_changed(new_amount: int)
+
 signal coin_collected
 
 signal game_start

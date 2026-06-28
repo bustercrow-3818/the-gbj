@@ -11,4 +11,4 @@ func set_stats_to_default() -> void:
 
 func collision_effect(_body: Node2D) -> void:
 	if _body is Player:
-		_body.take_damage(damage)
+		_body.plot_armor.adjust_plot_armor(-damage)

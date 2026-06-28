@@ -1,16 +1,21 @@
-[gd_scene load_steps=38 format=3 uid="uid://rs7jc5jasrwg"]
+[gd_scene load_steps=39 format=3 uid="uid://rs7jc5jasrwg"]
 
 [ext_resource type="Texture2D" uid="uid://dpjn6i8h3o3ir" path="res://assets/knight.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://c074a03o7p4sn" path="res://objects/scripts/player/player.gd" id="1_onrkg"]
-[ext_resource type="Script" uid="uid://darupaa6i70dp" path="res://resources/news/classes/movement_stats.gd" id="2_hqtel"]
-[ext_resource type="PackedScene" uid="uid://b6ed5p3mrt3xf" path="res://system/hud.tscn" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://darupaa6i70dp" path="res://components/movement_stats.gd" id="2_hqtel"]
+[ext_resource type="Script" uid="uid://b1uw6nja88d8i" path="res://components/armor_stats.gd" id="3_8odfe"]
 [ext_resource type="PackedScene" uid="uid://bwce1bk7kykxt" path="res://components/player_state_machine.tscn" id="5_8odfe"]
 
 [sub_resource type="Resource" id="Resource_sweqy"]
 script = ExtResource("2_hqtel")
 jump_speed = 1000.0
+max_jumps = 2
 coyote_time = 0.05
 metadata/_custom_type_script = "uid://darupaa6i70dp"
+
+[sub_resource type="Resource" id="Resource_cs20r"]
+script = ExtResource("3_8odfe")
+metadata/_custom_type_script = "uid://b1uw6nja88d8i"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 8.0
@@ -254,11 +259,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud", "camera", "jump_time") groups=["player"]]
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "camera", "jump_time") groups=["player"]]
 script = ExtResource("1_onrkg")
 move_stats = SubResource("Resource_sweqy")
+plot_armor = SubResource("Resource_cs20r")
 sprite = NodePath("AnimatedSprite2D")
-hud = NodePath("hud")
 camera = NodePath("camera")
 jump_time = NodePath("jump_time")
 
@@ -285,10 +290,6 @@ offset_top = -64.0
 offset_right = 25.0
 offset_bottom = -41.0
 text = "temp"
-
-[node name="hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_i3pqv")]
-plot_points_per_chapter = 10
-player = NodePath("..")
 
 [node name="jump_time" type="Timer" parent="."]
 one_shot = true

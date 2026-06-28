@@ -1,10 +1,12 @@
 extends CanvasLayer
-class_name HUD
+class_name UIManager
 
 @export var plot_points_per_chapter: int = 10
-@export var player: Player
 
-var current_plot_armor: int = 0
+@export_category("Node References")
+@export var good_news_choices: Control
+@export var bad_news_choices: Control
+
 var current_plot_points: int = 0
 var current_chapter: int = 1
 
@@ -17,38 +19,30 @@ var current_menu: Control
 func _ready() -> void:
 	for menu in get_children():
 		menu_registry[menu.name] = menu
-		print("Registering menu: %s" % menu.name)
 	
-	SignalBus.coin_collected.connect(update_plot_armor)
-	SignalBus.coin_collected.connect(update_plot_points)
-	SignalBus.player_dead.connect(show_menu.bind("game_over"))
-	SignalBus.player_damaged.connect(update_plot_armor)
-	%quit_button.pressed.connect(quit_game)
-	%restart_button.pressed.connect(restart_game)
-	
-	%good_news_first.pressed.connect(show_menu.bind("good_news"))
-	%bad_news_first.pressed.connect(show_menu.bind("bad_news"))
-	
-	for button in %good_news_choices.get_children():
+	for button in good_news_choices.get_children():
 		if button is Button:
 			button.pressed.connect(good_news_selected)
 	
-	for button in %bad_news_choices.get_children():
+	for button in bad_news_choices.get_children():
 		if button is Button:
 			button.pressed.connect(bad_news_selected)
+			
+	connect_signals()
 
+func connect_signals() -> void:
+	#SignalBus.coin_collected.connect(update_plot_armor)
+	SignalBus.coin_collected.connect(update_plot_points)
+	SignalBus.player_dead.connect(show_menu.bind("game_over"))
+	SignalBus.player_damaged.connect(update_plot_armor)
+	SignalBus.plot_armor_changed.connect(update_plot_armor)
+	%quit_button.pressed.connect(quit_game)
+	%restart_button.pressed.connect(restart_game)
+	%good_news_first.pressed.connect(show_menu.bind("good_news"))
+	%bad_news_first.pressed.connect(show_menu.bind("bad_news"))
 
-
-func update_plot_armor(qty: int = 1) -> void:
-	current_plot_armor += qty
-	
-	if current_plot_armor > player.max_plot_armor:
-		current_plot_armor = player.max_plot_armor
-	
-	if current_plot_armor < 0:
-		current_plot_armor = 0
-	
-	%plot_armor.text = "Plot Armor: " + str(current_plot_armor)
+func update_plot_armor(value: int) -> void:
+	%plot_armor.text = "Plot Armor: " + str(value)
 
 func update_plot_points(qty: int = 1) -> void:
 	current_plot_points += qty
@@ -68,7 +62,6 @@ func show_menu(menu_name: StringName) -> void:
 		current_menu.hide()
 	
 	current_menu = menu_registry[menu_name]
-	print("Attempting to shift from menu %s to menu %s" % [current_menu.name, menu_name])
 	current_menu.show()
 
 func good_news_selected() -> void:
@@ -79,7 +72,7 @@ func good_news_selected() -> void:
 	else:
 		need_good_news = true
 		need_bad_news = true
-		show_menu("game_display")
+		show_menu("hud")
 		SignalBus.game_resume.emit()
 
 func bad_news_selected() -> void:
@@ -90,14 +83,13 @@ func bad_news_selected() -> void:
 	else:
 		need_good_news = true
 		need_bad_news = true
-		show_menu("game_display")
+		show_menu("hud")
 		SignalBus.game_resume.emit()
 
 func restart_game() -> void:
-	update_plot_armor(-current_plot_armor)
 	update_plot_points(-current_plot_points)
 	
-	show_menu("game_display")
+	show_menu("hud")
 	SignalBus.game_start.emit()
 
 func quit_game() -> void:

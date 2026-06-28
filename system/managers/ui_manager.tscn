@@ -1,13 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6ed5p3mrt3xf"]
 
-[ext_resource type="Script" uid="uid://1je3jer5br4i" path="res://system/hud.gd" id="1_37p78"]
-[ext_resource type="Script" uid="uid://in4gygc0qbur" path="res://system/news_button.gd" id="2_g1b03"]
-[ext_resource type="Resource" uid="uid://bmdsixb7myjrt" path="res://resources/news/pools/all_good_news.tres" id="3_lrwdk"]
-[ext_resource type="Resource" uid="uid://bxoawseu6gu3f" path="res://resources/news/pools/all_bad_news.tres" id="4_lrwdk"]
+[ext_resource type="Script" uid="uid://1je3jer5br4i" path="res://system/managers/ui_manager.gd" id="1_xp2fk"]
+[ext_resource type="Script" uid="uid://in4gygc0qbur" path="res://system/news_button.gd" id="2_d5arg"]
+[ext_resource type="Resource" uid="uid://crl0vwxcttwla" path="res://resources/news/pools/all_good_news.tres" id="3_lghpu"]
+[ext_resource type="Resource" uid="uid://cl222cwvieoas" path="res://resources/news/pools/all_bad_news.tres" id="4_igtf2"]
 
-[node name="hud" type="CanvasLayer"]
-script = ExtResource("1_37p78")
+[node name="ui_manager" type="CanvasLayer" node_paths=PackedStringArray("good_news_choices", "bad_news_choices")]
+script = ExtResource("1_xp2fk")
 plot_points_per_chapter = 2
+good_news_choices = NodePath("good_news/VBoxContainer/good_news_choices")
+bad_news_choices = NodePath("bad_news/VBoxContainer/bad_news_choices")
 
 [node name="game_over" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -52,20 +54,20 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
 
-[node name="game_display" type="PanelContainer" parent="."]
+[node name="hud" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 offset_right = 61.0
 offset_bottom = 23.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="game_display"]
+[node name="VBoxContainer" type="VBoxContainer" parent="hud"]
 layout_mode = 2
 
-[node name="plot_armor" type="Label" parent="game_display/VBoxContainer"]
+[node name="plot_armor" type="Label" parent="hud/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Plot Armor: 0"
 
-[node name="plot_points" type="Label" parent="game_display/VBoxContainer"]
+[node name="plot_points" type="Label" parent="hud/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Plot Points: 0"
@@ -146,8 +148,8 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "The fans like you"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("3_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("3_lghpu")
 
 [node name="good_news_2" type="Button" parent="good_news/VBoxContainer/good_news_choices"]
 unique_name_in_owner = true
@@ -157,8 +159,8 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "The writer likes you"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("3_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("3_lghpu")
 
 [node name="good_news_3" type="Button" parent="good_news/VBoxContainer/good_news_choices"]
 unique_name_in_owner = true
@@ -168,8 +170,8 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "Something else good"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("3_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("3_lghpu")
 
 [node name="bad_news" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -205,8 +207,8 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "The fans hate you"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("4_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("4_igtf2")
 
 [node name="bad_news_2" type="Button" parent="bad_news/VBoxContainer/bad_news_choices"]
 custom_minimum_size = Vector2(96, 0)
@@ -215,8 +217,8 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "The writer hates you"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("4_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("4_igtf2")
 
 [node name="bad_news_3" type="Button" parent="bad_news/VBoxContainer/bad_news_choices"]
 custom_minimum_size = Vector2(96, 0)
@@ -225,5 +227,5 @@ size_flags_horizontal = 3
 tooltip_text = "Effect in more detail"
 text = "Something else bad"
 autowrap_mode = 2
-script = ExtResource("2_g1b03")
-pool = ExtResource("4_lrwdk")
+script = ExtResource("2_d5arg")
+pool = ExtResource("4_igtf2")

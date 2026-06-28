@@ -8,14 +8,13 @@ extends Node2D
 
 var direction: float
 
-
-
 func _ready() -> void:
 	SignalBus.player_stun.connect(start_stun)
 	SignalBus.round_ended.connect(_change_state.bind(states.PAUSED, "idle"))
 	SignalBus.player_dead.connect(_change_state.bind(states.DEAD, "dead"))
 	SignalBus.game_start.connect(_change_state.bind(states.IDLE, "idle"))
 	SignalBus.player_ready.connect(_change_state.bind(states.IDLE, "idle"))
+	SignalBus.game_pause.connect(_change_state.bind(states.PAUSED, "idle"))
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
@@ -52,7 +51,6 @@ enum states{
 var current_state: states = states.IDLE
 
 func _change_state(_new_state: states, _new_animation: StringName, _data: Dictionary = {}) -> void:
-	print("changing state to %s" % states.find_key(_new_state))
 	current_state = _new_state
 	player.sprite.play(_new_animation)
 
@@ -63,14 +61,12 @@ func idle(_data: Dictionary = {}) -> void:
 	if direction != 0:
 		_change_state(states.RUN, "run")
 	elif Input.is_action_just_pressed("jump"):
-		player.velocity.y -= move_stats.jump_speed
 		player.velocity.x *= 0.5
-		move_stats.jumps_left -= 1
-		jump_time.start(move_stats.jump_time)
-		_change_state(states.JUMP, "jump")
+		start_jump()
 	elif player.is_on_floor() == false:
 		await get_tree().create_timer(move_stats.coyote_time).timeout
 		if not player.is_on_floor():
+			move_stats.jumps_left -= 1
 			_change_state(states.FALL, "fall")
 
 func run(_data: Dictionary = {}) -> void:
@@ -79,13 +75,11 @@ func run(_data: Dictionary = {}) -> void:
 	if direction == 0:
 		_change_state(states.IDLE, "idle")
 	elif Input.is_action_just_pressed("jump"):
-		player.velocity.y -= move_stats.jump_speed
-		move_stats.jumps_left -= 1
-		jump_time.start(move_stats.jump_time)
-		_change_state(states.JUMP, "jump")
+		start_jump()
 	elif player.is_on_floor() == false:
 		await get_tree().create_timer(move_stats.coyote_time).timeout
 		if not player.is_on_floor():
+			move_stats.jumps_left -= 1
 			_change_state(states.FALL, "fall")
 
 func jump(_data: Dictionary = {}) -> void:
@@ -96,6 +90,8 @@ func jump(_data: Dictionary = {}) -> void:
 		if player.velocity.y < 0:
 			player.velocity.y *= 0.5
 		_change_state(states.FALL, "fall")
+	elif Input.is_action_just_pressed("jump") and move_stats.jumps_left > 0:
+		start_jump()
 
 func fall(_data: Dictionary = {}) -> void:
 	gravity()
@@ -104,17 +100,14 @@ func fall(_data: Dictionary = {}) -> void:
 	if player.is_on_floor():
 		move_stats.jumps_left = move_stats.max_jumps
 		_change_state(states.IDLE, "idle")
-	elif move_stats.jumps_left > 0 and Input.is_action_just_released("jump"):
-		player.velocity.y -= move_stats.jump_speed
-		move_stats.jumps_left -= 1
-		jump_time.start(move_stats.jump_time)
-		_change_state(states.JUMP, "jump")
+	elif Input.is_action_just_pressed("jump") and move_stats.jumps_left > 0:
+		start_jump()
 
 func dead(_data: Dictionary = {}) -> void:
 	gravity()
 
 func stunned(_data: Dictionary = {}) -> void:
-	
+	gravity()
 	pass
 
 func paused() -> void:
@@ -149,13 +142,16 @@ func start_stun(duration: float) -> void:
 	_change_state(states.STUNNED, "fall")
 	await get_tree().create_timer(duration).timeout
 	if current_state == states.PAUSED or current_state == states.DEAD:
-		print("skipping state change because state is now %s" % states.find_key(current_state))
 		pass
 	else:
-		print("returning to previous state")
 		player.velocity = previous_velocity
 		_change_state(previous_state, previous_anim)
 
-	
+func start_jump() -> void:
+	player.velocity.y *= 0.5
+	player.velocity.y -= move_stats.jump_speed
+	move_stats.jumps_left -= 1
+	jump_time.start(move_stats.jump_time)
+	_change_state(states.JUMP, "jump")
 
 #endregion

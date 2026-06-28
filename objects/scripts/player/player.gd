@@ -11,13 +11,13 @@ var stunned: bool = false
 #region Export variables
 @export_category("Stats")
 @export var move_stats: MovementStats
+@export var plot_armor: ArmorStats
 @export var max_plot_armor: int = 10
 var current_max_plot_armor: int = 10
 var current_plot_armor: int = 0
 
 @export_category("Node References")
 @export var sprite: AnimatedSprite2D
-@export var hud: HUD
 @export var camera: Camera2D
 @export var jump_time: Timer
 
@@ -32,58 +32,29 @@ func _ready() -> void:
 	SignalBus.game_resume.connect(break_time_end)
 	SignalBus.coin_collected.connect(on_coin_collected)
 
-func take_damage(amount: int) -> void:
-	current_plot_armor -= amount
-	
-	if current_plot_armor == 0:
-		velocity.x = 0
-		SignalBus.player_dead.emit()
-	
-	SignalBus.player_damaged.emit(-amount)
-
 func on_coin_collected() -> void:
-	if current_plot_armor < current_max_plot_armor:
-		current_plot_armor += 1
+	plot_armor.adjust_plot_armor(1)
 
 func initialize_player(location: Vector2) -> void:
 	var spawn_tween: Tween = create_tween()
 	
-	current_plot_armor = 0
-	current_max_plot_armor = max_plot_armor
+	plot_armor.initialize()
+
 	spawn_tween.tween_property(self, "global_position", location, respawn_slide_time)
 	
-	game_pause_resume()
+	SignalBus.game_pause.emit()
 	await spawn_tween.finished
 	
-	game_pause_resume()
+	SignalBus.player_ready.emit()
 
 #region VFX
-func game_pause_resume() -> void:
-	game_paused = !game_paused
 
 func break_time_start() -> void:
 	velocity = Vector2.ZERO
-	zoom_camera(Vector2(1, 1), break_time_duration)
+	await zoom_camera(Vector2(break_time_zoom), 0.25)
 
 func break_time_end() -> void:
-	await zoom_camera(Vector2(break_time_zoom), 0.25)
-	SignalBus.player_ready.emit()
-
-func break_time_toggle() -> void:
-	var zoom: Vector2
-	var duration: float
-	
-	if game_paused == false:
-		zoom = break_time_zoom
-		duration = 0.25
-		
-	else:
-		velocity = Vector2.ZERO
-		zoom = Vector2(1, 1)
-		duration = break_time_duration
-	
-	game_pause_resume()
-	await zoom_camera(zoom, duration)
+	await zoom_camera(Vector2(1, 1), break_time_duration)
 	SignalBus.player_ready.emit()
 
 func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0) -> void:
@@ -92,9 +63,4 @@ func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0)
 	zoom_tween.tween_property(camera, "zoom", zoom_level, duration)
 	await zoom_tween.finished
 
-
 #endregion
-
-func info_request(_request_name: StringName, _info: Dictionary) -> void:
-	
-	pass

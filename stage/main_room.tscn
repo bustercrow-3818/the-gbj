@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3rorv2mid2j5"]
+[gd_scene load_steps=7 format=3 uid="uid://c3rorv2mid2j5"]
 
 [ext_resource type="PackedScene" uid="uid://rs7jc5jasrwg" path="res://objects/scenes/player/player.tscn" id="1_0vpvg"]
 [ext_resource type="Script" uid="uid://b75ufu23jcpvk" path="res://stage/main_room.gd" id="1_u3o0j"]
-[ext_resource type="PackedScene" uid="uid://bfwdlp4c2edeh" path="res://system/object_manager.tscn" id="2_1pcwl"]
+[ext_resource type="PackedScene" uid="uid://bfwdlp4c2edeh" path="res://system/managers/object_manager.tscn" id="2_1pcwl"]
+[ext_resource type="PackedScene" uid="uid://b6ed5p3mrt3xf" path="res://system/managers/ui_manager.tscn" id="4_ggi10"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kppmi"]
 size = Vector2(840, 100)
@@ -45,3 +46,6 @@ hazard_threshold = 2
 
 [node name="player" parent="." instance=ExtResource("1_0vpvg")]
 break_time_duration = 2.0
+
+[node name="ui_manager" parent="." instance=ExtResource("4_ggi10")]
+plot_points_per_chapter = 10

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bfwdlp4c2edeh"]
 
-[ext_resource type="Script" uid="uid://bsneg4hhnybkw" path="res://stage/object_manager.gd" id="1_7a4e8"]
+[ext_resource type="Script" uid="uid://bsneg4hhnybkw" path="res://system/managers/object_manager.gd" id="1_7a4e8"]
 [ext_resource type="PackedScene" uid="uid://ce8rhyfdjfh7c" path="res://objects/scenes/block.tscn" id="2_hxheb"]
 [ext_resource type="PackedScene" uid="uid://bbl8s0bl7h57g" path="res://objects/scenes/coin.tscn" id="3_veulj"]
 [ext_resource type="PackedScene" uid="uid://bi7plrtyxjpce" path="res://objects/scenes/hazard.tscn" id="4_bxfn5"]

@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="NewsPool" load_steps=5 format=3 uid="uid://bxoawseu6gu3f"]
+[gd_resource type="Resource" script_class="NewsPool" load_steps=5 format=3 uid="uid://cl222cwvieoas"]
 
 [ext_resource type="PackedScene" uid="uid://dlwyqta6jwitt" path="res://system/alternate_news_system/bad_news/more_slippery.tscn" id="1_i2h7i"]
 [ext_resource type="PackedScene" uid="uid://ba7762f5ivtwn" path="res://system/alternate_news_system/no_news.tscn" id="2_cfr4m"]
-[ext_resource type="Script" uid="uid://dld0caajsamfc" path="res://resources/news/classes/news_pool.gd" id="2_ixhas"]
 [ext_resource type="PackedScene" uid="uid://cf5mkaunb4poo" path="res://system/alternate_news_system/bad_news/more_pain.tscn" id="3_i6tmi"]
+[ext_resource type="Script" uid="uid://dvacss6wb3j3" path="res://resources/news/pools/news_pool.gd" id="4_i6tmi"]
 
 [resource]
-script = ExtResource("2_ixhas")
-news = Array[PackedScene]([ExtResource("1_i2h7i"), ExtResource("2_cfr4m"), ExtResource("2_cfr4m"), ExtResource("3_i6tmi")])
-metadata/_custom_type_script = "uid://dld0caajsamfc"
+script = ExtResource("4_i6tmi")
+news = Array[PackedScene]([ExtResource("3_i6tmi"), ExtResource("1_i2h7i"), ExtResource("2_cfr4m")])
