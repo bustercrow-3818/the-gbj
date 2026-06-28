@@ -28,9 +28,8 @@ var current_plot_armor: int = 0
 #endregion
 
 func _ready() -> void:
-	SignalBus.round_ended.connect(break_time_toggle)
-	SignalBus.game_resume.connect(break_time_toggle)
-	#SignalBus.player_stun.connect(stun)
+	SignalBus.round_ended.connect(break_time_start)
+	SignalBus.game_resume.connect(break_time_end)
 	SignalBus.coin_collected.connect(on_coin_collected)
 
 func take_damage(amount: int) -> void:
@@ -63,8 +62,12 @@ func game_pause_resume() -> void:
 	game_paused = !game_paused
 
 func break_time_start() -> void:
-	
-	pass
+	velocity = Vector2.ZERO
+	zoom_camera(Vector2(1, 1), break_time_duration)
+
+func break_time_end() -> void:
+	await zoom_camera(Vector2(break_time_zoom), 0.25)
+	SignalBus.player_ready.emit()
 
 func break_time_toggle() -> void:
 	var zoom: Vector2
@@ -80,12 +83,8 @@ func break_time_toggle() -> void:
 		duration = break_time_duration
 	
 	game_pause_resume()
-	zoom_camera(zoom, duration)
-
-#func stun(duration: float = 0.0) -> void:
-	#stunned = true
-	#await get_tree().create_timer(duration).timeout
-	#stunned = false
+	await zoom_camera(zoom, duration)
+	SignalBus.player_ready.emit()
 
 func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0) -> void:
 	var zoom_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)

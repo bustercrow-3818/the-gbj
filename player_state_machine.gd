@@ -15,7 +15,7 @@ func _ready() -> void:
 	SignalBus.round_ended.connect(_change_state.bind(states.PAUSED, "idle"))
 	SignalBus.player_dead.connect(_change_state.bind(states.DEAD, "dead"))
 	SignalBus.game_start.connect(_change_state.bind(states.IDLE, "idle"))
-	player.unzoom_finished.connect(_change_state.bind(states.IDLE, "idle"))
+	SignalBus.player_ready.connect(_change_state.bind(states.IDLE, "idle"))
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")

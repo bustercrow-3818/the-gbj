@@ -4,6 +4,7 @@ extends Node
 signal player_damaged(amount: int)
 signal player_dead
 signal player_stun(duration: float)
+signal player_ready
 
 signal coin_collected
 

@@ -11,16 +11,23 @@ var current_chapter: int = 1
 var need_good_news: bool = true
 var need_bad_news: bool = true
 
+var menu_registry: Dictionary[StringName, Control]
+var current_menu: Control
+
 func _ready() -> void:
+	for menu in get_children():
+		menu_registry[menu.name] = menu
+		print("Registering menu: %s" % menu.name)
+	
 	SignalBus.coin_collected.connect(update_plot_armor)
 	SignalBus.coin_collected.connect(update_plot_points)
-	SignalBus.player_dead.connect(show_game_over)
+	SignalBus.player_dead.connect(show_menu.bind("game_over"))
 	SignalBus.player_damaged.connect(update_plot_armor)
 	%quit_button.pressed.connect(quit_game)
 	%restart_button.pressed.connect(restart_game)
 	
-	%good_news_first.pressed.connect(show_good_news)
-	%bad_news_first.pressed.connect(show_bad_news)
+	%good_news_first.pressed.connect(show_menu.bind("good_news"))
+	%bad_news_first.pressed.connect(show_menu.bind("bad_news"))
 	
 	for button in %good_news_choices.get_children():
 		if button is Button:
@@ -48,63 +55,49 @@ func update_plot_points(qty: int = 1) -> void:
 	%plot_points.text = "Plot Points: " + str(current_plot_points)
 	
 	if current_plot_points >= current_chapter * plot_points_per_chapter:
+		SignalBus.round_ended.emit()
 		current_chapter += 1
-		show_news()
+		show_menu("news")
 
-
-
-func hide_all_interface() -> void:
-	for i in get_children():
-		i.hide()
-
-func show_game_over() -> void:
-	hide_all_interface()
-
-	%final_score.text = str(current_plot_points)
-	%game_over.show()
-
-func show_game_display() -> void:
-	hide_all_interface()
-	%game_display.show()
-
-func show_news() -> void:
-	hide_all_interface()
-	%news.show()
-	SignalBus.round_ended.emit()
-
-func show_good_news() -> void:
-	hide_all_interface()
-	%good_news.show()
-	need_good_news = false
-
-func show_bad_news() -> void:
-	hide_all_interface()
-	%bad_news.show()
-	need_bad_news = false
+func show_menu(menu_name: StringName) -> void:
+	if menu_registry[menu_name] == null:
+		print("Menu not registered: %s" % menu_name)
+		return
+	
+	if current_menu:
+		current_menu.hide()
+	
+	current_menu = menu_registry[menu_name]
+	print("Attempting to shift from menu %s to menu %s" % [current_menu.name, menu_name])
+	current_menu.show()
 
 func good_news_selected() -> void:
+	need_good_news = false
+	
 	if need_bad_news == true:
-		show_bad_news()
+		show_menu("bad_news")
 	else:
 		need_good_news = true
 		need_bad_news = true
-		show_game_display()
+		show_menu("game_display")
 		SignalBus.game_resume.emit()
 
 func bad_news_selected() -> void:
+	need_bad_news = false
+	
 	if need_good_news == true:
-		show_good_news()
+		show_menu("good_news")
 	else:
 		need_good_news = true
 		need_bad_news = true
-		show_game_display()
+		show_menu("game_display")
 		SignalBus.game_resume.emit()
 
 func restart_game() -> void:
 	update_plot_armor(-current_plot_armor)
 	update_plot_points(-current_plot_points)
 	
-	show_game_display()
+	show_menu("game_display")
 	SignalBus.game_start.emit()
 
 func quit_game() -> void:
