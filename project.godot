@@ -19,6 +19,11 @@ config/icon="res://assets/icon.svg"
 SignalBus="*res://system/signal_bus.gd"
 SFXBus="*res://sfx_bus.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [global_group]
 
 blocks=""

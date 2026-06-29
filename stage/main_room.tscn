@@ -11,8 +11,11 @@ size = Vector2(840, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mpmv"]
 size = Vector2(100, 840)
 
-[node name="main_room" type="Node2D"]
+[node name="main_room" type="Node2D" node_paths=PackedStringArray("player", "object_manager", "ui_manager")]
 script = ExtResource("1_u3o0j")
+player = NodePath("player")
+object_manager = NodePath("object_manager")
+ui_manager = NodePath("ui_manager")
 
 [node name="room_bounds" type="StaticBody2D" parent="."]
 collision_layer = 3
@@ -48,4 +51,4 @@ hazard_threshold = 2
 break_time_duration = 2.0
 
 [node name="ui_manager" parent="." instance=ExtResource("4_ggi10")]
-plot_points_per_chapter = 10
+plot_points_per_chapter = 5

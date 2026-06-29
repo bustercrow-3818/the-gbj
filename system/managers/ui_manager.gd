@@ -31,7 +31,6 @@ func _ready() -> void:
 	connect_signals()
 
 func connect_signals() -> void:
-	#SignalBus.coin_collected.connect(update_plot_armor)
 	SignalBus.coin_collected.connect(update_plot_points)
 	SignalBus.player_dead.connect(show_menu.bind("game_over"))
 	SignalBus.player_damaged.connect(update_plot_armor)
@@ -94,3 +93,7 @@ func restart_game() -> void:
 
 func quit_game() -> void:
 	get_tree().quit()
+
+func new_game() -> void:
+	
+	pass
