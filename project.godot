@@ -17,6 +17,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 SignalBus="*res://system/signal_bus.gd"
+SFXBus="*res://sfx_bus.gd"
 
 [global_group]
 
