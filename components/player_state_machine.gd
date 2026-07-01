@@ -140,8 +140,9 @@ func start_stun(duration: float) -> void:
 	
 	player.velocity = Vector2.ZERO
 	_change_state(states.STUNNED, "fall")
+	
 	await get_tree().create_timer(duration).timeout
-	if current_state == states.PAUSED or current_state == states.DEAD:
+	if current_state in [states.DEAD, states.PAUSED]:
 		pass
 	else:
 		player.velocity = previous_velocity

@@ -1,231 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6ed5p3mrt3xf"]
+[gd_scene load_steps=7 format=3 uid="uid://b6ed5p3mrt3xf"]
 
 [ext_resource type="Script" uid="uid://1je3jer5br4i" path="res://system/managers/ui_manager.gd" id="1_xp2fk"]
-[ext_resource type="Script" uid="uid://in4gygc0qbur" path="res://system/news_button.gd" id="2_d5arg"]
-[ext_resource type="Resource" uid="uid://crl0vwxcttwla" path="res://resources/news/pools/all_good_news.tres" id="3_lghpu"]
-[ext_resource type="Resource" uid="uid://cl222cwvieoas" path="res://resources/news/pools/all_bad_news.tres" id="4_igtf2"]
+[ext_resource type="PackedScene" uid="uid://cmct3qrvsaior" path="res://system/ui_elements/game_over.tscn" id="2_cbqst"]
+[ext_resource type="PackedScene" uid="uid://cen856dacfgka" path="res://system/ui_elements/hud.tscn" id="3_rxk12"]
+[ext_resource type="PackedScene" uid="uid://y485lp1as0aj" path="res://system/ui_elements/news.tscn" id="4_j52f6"]
+[ext_resource type="PackedScene" uid="uid://5wassn4xo12g" path="res://system/ui_elements/good_news.tscn" id="5_j52f6"]
+[ext_resource type="PackedScene" uid="uid://b3q18d8wlggjk" path="res://system/ui_elements/bad_news.tscn" id="6_rxk12"]
 
-[node name="ui_manager" type="CanvasLayer" node_paths=PackedStringArray("good_news_choices", "bad_news_choices")]
+[node name="ui_manager" type="CanvasLayer"]
 script = ExtResource("1_xp2fk")
 plot_points_per_chapter = 2
-good_news_choices = NodePath("good_news/VBoxContainer/good_news_choices")
-bad_news_choices = NodePath("bad_news/VBoxContainer/bad_news_choices")
 
-[node name="game_over" type="PanelContainer" parent="."]
+[node name="game_over" parent="." instance=ExtResource("2_cbqst")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = 28.0
-offset_right = 128.0
-offset_bottom = 94.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="game_over"]
-layout_mode = 2
-
-[node name="score_header" type="Label" parent="game_over/VBoxContainer"]
-layout_mode = 2
-text = "Final Score:"
-horizontal_alignment = 1
-
-[node name="final_score" type="Label" parent="game_over/VBoxContainer"]
+[node name="hud" parent="." instance=ExtResource("3_rxk12")]
 unique_name_in_owner = true
-layout_mode = 2
-text = "0"
-horizontal_alignment = 1
 
-[node name="restart_button" type="Button" parent="game_over/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "Restart"
-
-[node name="quit_button" type="Button" parent="game_over/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "Quit"
-
-[node name="hud" type="PanelContainer" parent="."]
-unique_name_in_owner = true
-offset_right = 61.0
-offset_bottom = 23.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="hud"]
-layout_mode = 2
-
-[node name="plot_armor" type="Label" parent="hud/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Plot Armor: 0"
-
-[node name="plot_points" type="Label" parent="hud/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Plot Points: 0"
-
-[node name="news" type="PanelContainer" parent="."]
+[node name="news" parent="." instance=ExtResource("4_j52f6")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = 1.0
-offset_right = 132.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = 2.0
+offset_bottom = 86.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="news"]
-layout_mode = 2
-
-[node name="news_header" type="Label" parent="news/VBoxContainer"]
-custom_minimum_size = Vector2(264, 0)
-layout_mode = 2
-text = "Do you want the good news or the bad news?"
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="news_choices" type="HBoxContainer" parent="news/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="good_news_first" type="Button" parent="news/VBoxContainer/news_choices"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "The Good News"
-
-[node name="bad_news_first" type="Button" parent="news/VBoxContainer/news_choices"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "The Bad News"
-
-[node name="good_news" type="PanelContainer" parent="."]
+[node name="good_news" parent="." instance=ExtResource("5_j52f6")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -148.0
-offset_top = 1.0
-offset_right = 148.0
-offset_bottom = 82.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="good_news"]
-layout_mode = 2
-
-[node name="good_news_header" type="Label" parent="good_news/VBoxContainer"]
-layout_mode = 2
-text = "The good news is..."
-horizontal_alignment = 1
-
-[node name="good_news_choices" type="HBoxContainer" parent="good_news/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="good_news_1" type="Button" parent="good_news/VBoxContainer/good_news_choices"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "The fans like you"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("3_lghpu")
-
-[node name="good_news_2" type="Button" parent="good_news/VBoxContainer/good_news_choices"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "The writer likes you"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("3_lghpu")
-
-[node name="good_news_3" type="Button" parent="good_news/VBoxContainer/good_news_choices"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "Something else good"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("3_lghpu")
-
-[node name="bad_news" type="PanelContainer" parent="."]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -148.0
 offset_top = 0.5
-offset_right = 148.0
 offset_bottom = 81.5
-grow_horizontal = 2
-grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="bad_news"]
-layout_mode = 2
-
-[node name="bad_news_header" type="Label" parent="bad_news/VBoxContainer"]
-layout_mode = 2
-text = "The bad news is..."
-horizontal_alignment = 1
-
-[node name="bad_news_choices" type="HBoxContainer" parent="bad_news/VBoxContainer"]
+[node name="bad_news" parent="." instance=ExtResource("6_rxk12")]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="bad_news_1" type="Button" parent="bad_news/VBoxContainer/bad_news_choices"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "The fans hate you"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("4_igtf2")
-
-[node name="bad_news_2" type="Button" parent="bad_news/VBoxContainer/bad_news_choices"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "The writer hates you"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("4_igtf2")
-
-[node name="bad_news_3" type="Button" parent="bad_news/VBoxContainer/bad_news_choices"]
-custom_minimum_size = Vector2(96, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Effect in more detail"
-text = "Something else bad"
-autowrap_mode = 2
-script = ExtResource("2_d5arg")
-pool = ExtResource("4_igtf2")
+visible = false
+offset_top = 0.5
+offset_bottom = 81.5

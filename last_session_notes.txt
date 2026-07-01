@@ -3,3 +3,6 @@ Thought I had good working range detection for spawning blocks but when I added 
 
 5/30/26 - afternoon
 Fixed crazy offset problem. Blocks and coins now sometimes spawning inside collision objects. Trying to forcibly wait for the while loop in the range checker to finish before deciding to pass along the good location.
+
+6/30/26
+Previous sets of notes complete irrelevant now. Game mostly functional. Rebuilding menu system currently to be more modular and take responsibilities away from UIManager and give them to the relevant individual menus. Implemented already but buggy - when choosing "No news", does not transition back to normal gameplay.
