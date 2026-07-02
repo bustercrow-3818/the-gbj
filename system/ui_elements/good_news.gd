@@ -14,10 +14,11 @@ func bad_news_chosen_first() -> void:
 
 func news_complete_check() -> void:
 	if last_news == true:
-		last_news = false
 		menu_exited.emit("hud")
 		SignalBus.game_resume.emit()
 	
 	else:
 		SignalBus.good_news_chosen.emit()
 		menu_exited.emit("bad_news")
+	
+	last_news = false

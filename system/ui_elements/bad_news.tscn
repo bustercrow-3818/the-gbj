@@ -52,7 +52,7 @@ autowrap_mode = 2
 script = ExtResource("1_g3k6y")
 pool = ExtResource("2_5cbio")
 
-[node name="bad_news_2" type="Button" parent="panel/VBoxContainer/bad_news_choices"]
+[node name="bad_news_2" type="Button" parent="panel/VBoxContainer/bad_news_choices" groups=["bad_news"]]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -67,7 +67,7 @@ autowrap_mode = 2
 script = ExtResource("1_g3k6y")
 pool = ExtResource("2_5cbio")
 
-[node name="bad_news_3" type="Button" parent="panel/VBoxContainer/bad_news_choices"]
+[node name="bad_news_3" type="Button" parent="panel/VBoxContainer/bad_news_choices" groups=["bad_news"]]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
