@@ -131,7 +131,7 @@ func check_max_height() -> void:
 		if block.global_position.y < current_max_height:
 			current_max_height -= block_size
 
-func reset_arena() -> void:
+func reset_arena() -> void: ## Relies on Player node existing and being ready
 	current_hazard_threshold = 0
 	grid_spaces.clear()
 	occupied_grid_spaces.clear()

@@ -15,6 +15,7 @@ func _ready() -> void:
 	SignalBus.game_start.connect(_change_state.bind(states.IDLE, "idle"))
 	SignalBus.player_ready.connect(_change_state.bind(states.IDLE, "idle"))
 	SignalBus.game_pause.connect(_change_state.bind(states.PAUSED, "idle"))
+	SignalBus.return_to_main_menu.connect(_change_state.bind(states.PAUSED, "idle"))
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
@@ -34,6 +35,8 @@ func _physics_process(_delta: float) -> void:
 			stunned()
 		states.PAUSED:
 			paused()
+		states.MENU_STASIS:
+			paused()
 		
 	player.move_and_slide()
 
@@ -45,7 +48,8 @@ enum states{
 	HIT,
 	DEAD,
 	STUNNED,
-	PAUSED
+	PAUSED,
+	MENU_STASIS
 }
 
 var current_state: states = states.IDLE
@@ -56,7 +60,7 @@ func _change_state(_new_state: states, _new_animation: StringName, _data: Dictio
 
 #region State Functions
 func idle(_data: Dictionary = {}) -> void:
-	player.velocity.x = move_toward(player.velocity.x, 0, move_stats.run_decel)
+	player.velocity.x = move_toward(player.velocity.x, 0, move_stats.current_decel)
 	
 	if direction != 0:
 		_change_state(states.RUN, "run")
@@ -98,7 +102,7 @@ func fall(_data: Dictionary = {}) -> void:
 	horizontal_motion(direction)
 	
 	if player.is_on_floor():
-		move_stats.jumps_left = move_stats.max_jumps
+		move_stats.jumps_left = move_stats.current_max_jumps
 		_change_state(states.IDLE, "idle")
 	elif Input.is_action_just_pressed("jump") and move_stats.jumps_left > 0:
 		start_jump()
@@ -122,12 +126,12 @@ func horizontal_motion(_dir: float) -> void:
 	elif _dir > 0:
 		player.sprite.flip_h = false
 	
-	if player.velocity.x != move_stats.run_speed_max * _dir:
-		player.velocity.x = move_toward(player.velocity.x, move_stats.run_speed_max * _dir, move_stats.run_accel)
+	if player.velocity.x != move_stats.current_speed_max * _dir:
+		player.velocity.x = move_toward(player.velocity.x, move_stats.current_speed_max * _dir, move_stats.current_accel)
 
 func gravity() -> void:
-	if player.velocity.y < move_stats.terminal_velocity:
-		player.velocity.y += move_stats.fall_speed
+	if player.velocity.y < move_stats.current_terminal_velocity:
+		player.velocity.y += move_stats.current_fall_speed
 
 func start_stun(duration: float) -> void:
 	var previous_state: states = current_state
@@ -150,9 +154,13 @@ func start_stun(duration: float) -> void:
 
 func start_jump() -> void:
 	player.velocity.y *= 0.5
-	player.velocity.y -= move_stats.jump_speed
+	player.velocity.y -= move_stats.current_jump_speed
 	move_stats.jumps_left -= 1
-	jump_time.start(move_stats.jump_time)
+	jump_time.start(move_stats.current_jump_time)
 	_change_state(states.JUMP, "jump")
 
+func enter_stasis() -> void:
+	player.hide()
+	
+	pass
 #endregion

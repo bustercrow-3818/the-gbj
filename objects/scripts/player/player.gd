@@ -4,17 +4,17 @@ class_name Player
 @warning_ignore("unused_signal")
 signal unzoom_finished
 
-var direction: float = 0.0
-var game_paused: bool = false
-var stunned: bool = false
+#var direction: float = 0.0
+#var game_paused: bool = false
+#var stunned: bool = false
 
 #region Export variables
 @export_category("Stats")
 @export var move_stats: MovementStats
 @export var plot_armor: ArmorStats
-@export var max_plot_armor: int = 10
-var current_max_plot_armor: int = 10
-var current_plot_armor: int = 0
+#@export var max_plot_armor: int = 10
+#var current_max_plot_armor: int = 10
+#var current_plot_armor: int = 0
 
 @export_category("Node References")
 @export var sprite: AnimatedSprite2D
@@ -64,3 +64,8 @@ func zoom_camera(zoom_level: Vector2 = Vector2(1.0, 1.0), duration: float = 0.0)
 	await zoom_tween.finished
 
 #endregion
+
+func stasis() -> void:
+	hide()
+	velocity = Vector2.ZERO
+	pass

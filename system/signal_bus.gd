@@ -18,6 +18,7 @@ signal game_start
 signal game_pause
 signal game_resume
 signal round_ended
+signal return_to_main_menu
 
 signal time_out
 
