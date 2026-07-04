@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://c2kn5rhmm1p8v"]
 
-[ext_resource type="Script" uid="uid://ue13ljkj4yb1" path="res://system/ui_elements/menu_element_class.gd" id="1_wpdra"]
+[ext_resource type="Script" uid="uid://bats7eclo4p5y" path="res://system/ui_elements/main_menu.gd" id="1_wpdra"]
 
-[node name="main_menu" type="Control"]
+[node name="main_menu" type="Control" node_paths=PackedStringArray("play_game", "settigns", "exit", "initial_focus")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -16,6 +16,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wpdra")
+play_game = NodePath("VBoxContainer/play_game")
+settigns = NodePath("VBoxContainer/settings")
+exit = NodePath("VBoxContainer/exit_game")
+initial_focus = NodePath("VBoxContainer/play_game")
 metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 
 [node name="game_title" type="Label" parent="."]
@@ -50,15 +54,27 @@ grow_vertical = 2
 [node name="play_game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../exit_game")
+focus_neighbor_bottom = NodePath("../settings")
+focus_next = NodePath("../settings")
+focus_previous = NodePath("../exit_game")
 text = "Play"
 
 [node name="settings" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../play_game")
+focus_neighbor_bottom = NodePath("../exit_game")
+focus_next = NodePath("../exit_game")
+focus_previous = NodePath("../play_game")
 disabled = true
 text = "Settings"
 
 [node name="exit_game" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+focus_neighbor_top = NodePath("../settings")
+focus_neighbor_bottom = NodePath("../play_game")
+focus_next = NodePath("../play_game")
+focus_previous = NodePath("../settings")
 text = "Quit"

@@ -24,7 +24,7 @@ signal return_to_main_menu
 
 signal time_out
 
-signal news_stats_adjusted(_data: Dictionary)
+signal news_stats_adjusted(stat: StringName, _data: Dictionary)
 signal hazard_behavior_changed(new_behavior: HazardBehavior)
 
 signal info_request(request_name: StringName, info: Dictionary)

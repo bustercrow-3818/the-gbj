@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6ed5p3mrt3xf"]
+[gd_scene load_steps=8 format=3 uid="uid://b6ed5p3mrt3xf"]
 
 [ext_resource type="Script" uid="uid://1je3jer5br4i" path="res://system/managers/ui_manager.gd" id="1_xp2fk"]
 [ext_resource type="PackedScene" uid="uid://cmct3qrvsaior" path="res://system/ui_elements/game_over.tscn" id="2_cbqst"]
@@ -6,10 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://y485lp1as0aj" path="res://system/ui_elements/news.tscn" id="4_j52f6"]
 [ext_resource type="PackedScene" uid="uid://5wassn4xo12g" path="res://system/ui_elements/good_news.tscn" id="5_j52f6"]
 [ext_resource type="PackedScene" uid="uid://b3q18d8wlggjk" path="res://system/ui_elements/bad_news.tscn" id="6_rxk12"]
+[ext_resource type="PackedScene" uid="uid://c2kn5rhmm1p8v" path="res://system/ui_elements/main_menu.tscn" id="7_j52f6"]
 
-[node name="ui_manager" type="CanvasLayer"]
+[node name="ui_manager" type="CanvasLayer" node_paths=PackedStringArray("initial_menu")]
 script = ExtResource("1_xp2fk")
 plot_points_per_chapter = 2
+initial_menu = NodePath("main_menu")
 
 [node name="game_over" parent="." instance=ExtResource("2_cbqst")]
 unique_name_in_owner = true
@@ -17,6 +19,7 @@ visible = false
 
 [node name="hud" parent="." instance=ExtResource("3_rxk12")]
 unique_name_in_owner = true
+visible = false
 
 [node name="news" parent="." instance=ExtResource("4_j52f6")]
 unique_name_in_owner = true
@@ -35,3 +38,5 @@ unique_name_in_owner = true
 visible = false
 offset_top = 0.5
 offset_bottom = 81.5
+
+[node name="main_menu" parent="." instance=ExtResource("7_j52f6")]

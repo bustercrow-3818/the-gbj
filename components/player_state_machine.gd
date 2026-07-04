@@ -17,6 +17,7 @@ func _ready() -> void:
 	SignalBus.player_ready.connect(_change_state.bind(states.IDLE, "idle"))
 	SignalBus.game_pause.connect(_change_state.bind(states.PAUSED, "idle"))
 	SignalBus.return_to_main_menu.connect(_change_state.bind(states.PAUSED, "idle"))
+	SignalBus.news_stats_adjusted.connect(news_stats_change)
 
 func _physics_process(_delta: float) -> void:
 	direction = Input.get_axis("left", "right")
@@ -109,6 +110,7 @@ func fall(_data: Dictionary = {}) -> void:
 		start_jump()
 
 func dead(_data: Dictionary = {}) -> void:
+	player.velocity.x = move_toward(player.velocity.x, 0, move_stats.current_decel)
 	gravity()
 
 func stunned(_data: Dictionary = {}) -> void:
@@ -166,3 +168,9 @@ func enter_stasis() -> void:
 	
 	pass
 #endregion
+
+func news_stats_change(stat: StringName, _data: Dictionary) -> void:
+	match stat:
+		"jump_speed":
+			move_stats.current_jump_speed += _data["jump_speed"]
+	pass

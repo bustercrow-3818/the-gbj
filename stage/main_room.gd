@@ -6,10 +6,12 @@ class_name MainRoom
 @export var object_manager: ObjectManager
 @export var ui_manager: UIManager
 
-
+func _ready() -> void:
+	SignalBus.game_start.connect(show)
+	SignalBus.return_to_main_menu.connect(hide)
 
 func start_game() -> void:
-	player.show()
-	
-	SignalBus.game_start.emit()
-	pass
+	show()
+
+func quit_to_menu() -> void:
+	hide()

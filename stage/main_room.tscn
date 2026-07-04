@@ -17,6 +17,7 @@ script = ExtResource("4_3wf43")
 metadata/_custom_type_script = "uid://belg1oj1ofdea"
 
 [node name="main_room" type="Node2D" node_paths=PackedStringArray("object_manager", "ui_manager")]
+visible = false
 script = ExtResource("1_u3o0j")
 object_manager = NodePath("object_manager")
 ui_manager = NodePath("ui_manager")

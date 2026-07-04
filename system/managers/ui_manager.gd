@@ -4,8 +4,7 @@ class_name UIManager
 @export var plot_points_per_chapter: int = 10
 
 @export_category("Node References")
-@export var good_news_choices: Control
-@export var bad_news_choices: Control
+@export var initial_menu: MenuElement
 
 var current_plot_points: int = 0
 var current_chapter: int = 1
@@ -18,7 +17,9 @@ func _ready() -> void:
 		if menu is MenuElement:
 			menu_registry[menu.name] = menu
 			menu.menu_exited.connect(show_menu)
-			
+	
+	current_menu = initial_menu
+	
 	connect_signals()
 
 func connect_signals() -> void:

@@ -111,18 +111,13 @@ func create_hazard(_qty: int = 1) -> void:
 	current_hazard_threshold = 0
 
 func create_player() -> void:
-	print("Function create_player() called")
 	
 	if player == null:
-		print("Attempting to spawn player...")
-		print("Var player = %s" % player)
 		var new_player: Player = spawn_object(player_scene)
 		
 		new_player.initialize_player(assign_random_grid_space(new_player))
 		
 		player = new_player
-	else:
-		print("Var player was not a null value. Spawning skipped.")
 
 func spawn_object(scene: PackedScene) -> Node2D:
 	var new_object: Node2D = scene.instantiate()
@@ -164,7 +159,7 @@ func clear_arena(clear_player: bool = false) -> void:
 		
 	for i in get_tree().get_nodes_in_group("game objects"):
 		i.queue_free()
-		await get_tree().create_timer(stun_duration).timeout
+		#await get_tree().create_timer(stun_duration).timeout
 
 func initialize_arena() -> void:
 	current_hazard_threshold = 0
