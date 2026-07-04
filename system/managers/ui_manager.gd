@@ -40,7 +40,7 @@ func check_round_end() -> void:
 		SignalBus.round_ended.emit()
 		current_chapter += 1
 		show_menu("news")
-	pass
+		SignalBus.chapter_ended.emit(current_chapter)
 
 func show_menu(menu_name: StringName) -> void:
 	if menu_registry[menu_name] == null:
@@ -53,15 +53,13 @@ func show_menu(menu_name: StringName) -> void:
 	current_menu = menu_registry[menu_name]
 	current_menu.open()
 
-func check_news_progress() -> void:
-	
-	pass
-
 func quit_game() -> void:
 	get_tree().quit()
 
 func new_game() -> void:
 	current_plot_points = 0
+	current_chapter = 1
 	SignalBus.plot_points_changed.emit(0)
+	SignalBus.chapter_ended.emit(current_chapter)
 	if current_menu != menu_registry["hud"]:
 		show_menu("hud")

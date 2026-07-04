@@ -12,7 +12,8 @@ class_name ObjectManager
 @export var player: Player
 
 @export_category("Object Behavior")
-@export var hazard_behavior: HazardBehavior
+@export var default_hazard_behavior: HazardBehavior
+var hazard_behavior: HazardBehavior
 
 @export_category("Limits and Sizes")
 @export var grid_size: Vector2 = Vector2(0, 0)
@@ -170,13 +171,23 @@ func initialize_arena() -> void:
 	grid_spaces.clear()
 	occupied_grid_spaces.clear()
 	live_blocks.clear()
-	hazard_behavior.initialize_behavior()
+	hazard_behavior = default_hazard_behavior
+	hazard_behavior.set_stats_to_default()
 
 func initialize_grid() -> void:
 	current_max_height = grid_size.y - block_size
 	for x in range(block_size, grid_size.x - block_size, block_size):
 		for y in range(current_max_height, current_max_height - vertical_block_limit * block_size, -block_size):
 			grid_spaces.append(Vector2(x - block_size / 2, y - block_size / 2))
+
+func new_hazard_behavior(new_behavior: HazardBehavior) -> void:
+	hazard_behavior.set_stats_to_default()
+	hazard_behavior = new_behavior
+
+func update_hazard_behavior(new_behavior: HazardBehavior) -> void:
+	for i in get_tree().get_nodes_in_group("game objects"):
+		if i is Hazard:
+			i.behavior = new_behavior
 
 func stun_juice() -> void:
 	SignalBus.player_stun.emit(stun_duration)

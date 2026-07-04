@@ -9,6 +9,8 @@ signal player_ready
 signal plot_armor_changed(new_amount: int)
 signal plot_points_changed(new_amount: int)
 
+signal chapter_ended(new_chapter: int)
+
 signal good_news_chosen
 signal bad_news_chosen
 
