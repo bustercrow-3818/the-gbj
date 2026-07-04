@@ -4,19 +4,13 @@ class_name Player
 @warning_ignore("unused_signal")
 signal unzoom_finished
 
-#var direction: float = 0.0
-#var game_paused: bool = false
-#var stunned: bool = false
-
 #region Export variables
 @export_category("Stats")
 @export var move_stats: MovementStats
 @export var plot_armor: ArmorStats
-#@export var max_plot_armor: int = 10
-#var current_max_plot_armor: int = 10
-#var current_plot_armor: int = 0
 
 @export_category("Node References")
+@export var state_machine: StateMachine
 @export var sprite: AnimatedSprite2D
 @export var camera: Camera2D
 @export var jump_time: Timer
@@ -31,6 +25,11 @@ func _ready() -> void:
 	SignalBus.round_ended.connect(break_time_start)
 	SignalBus.game_resume.connect(break_time_end)
 	SignalBus.coin_collected.connect(on_coin_collected)
+	state_machine.move_stats = move_stats.duplicate()
+	state_machine.move_stats.initialize_values()
+
+func _process(_delta: float) -> void:
+	%debug_msg.text = str(state_machine.states.find_key(state_machine.current_state))
 
 func on_coin_collected() -> void:
 	plot_armor.adjust_plot_armor(1)

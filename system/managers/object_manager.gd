@@ -2,10 +2,13 @@ extends Node2D
 class_name ObjectManager
 
 #region Export Variables
-@export_category("Node References")
+@export_category("Scene References")
 @export var block_scene: PackedScene
 @export var coin_scene: PackedScene
 @export var hazard_scene: PackedScene
+@export var player_scene: PackedScene
+
+@export_category("Node References")
 @export var player: Player
 
 @export_category("Object Behavior")
@@ -48,14 +51,15 @@ func _ready() -> void:
 	
 	hazard_behavior.initialize_behavior()
 	
-	await player.ready
-	player.initialize_player(assign_random_grid_space(player))
+	#await player.ready
+	#player.initialize_player(assign_random_grid_space(player))
+	
+	reset_arena()
 
 func info_request(request_name: StringName, info: Dictionary) -> void:
 	match request_name:
 		"current_behavior":
 			info["current_behavior"] = hazard_behavior
-
 
 func assign_random_grid_space(body: Node2D, solid: bool = false, thin_pool: bool = false) -> Vector2:
 	var space: Vector2 = grid_spaces.pick_random()
@@ -107,6 +111,14 @@ func create_hazard(_qty: int = 1) -> void:
 	
 	current_hazard_threshold = 0
 
+func create_player() -> void:
+	if player == null:
+		var new_player: Player = spawn_object(player_scene)
+		
+		new_player.initialize_player(assign_random_grid_space(new_player))
+		
+		player = new_player
+
 func spawn_object(scene: PackedScene) -> Node2D:
 	var new_object: Node2D = scene.instantiate()
 	
@@ -132,6 +144,9 @@ func check_max_height() -> void:
 			current_max_height -= block_size
 
 func reset_arena() -> void: ## Relies on Player node existing and being ready
+	if player != null:
+		player.queue_free()
+	
 	current_hazard_threshold = 0
 	grid_spaces.clear()
 	occupied_grid_spaces.clear()
@@ -139,7 +154,6 @@ func reset_arena() -> void: ## Relies on Player node existing and being ready
 	hazard_behavior.initialize_behavior()
 	
 	for i in get_tree().get_nodes_in_group("game objects"):
-		SignalBus.player_stun.emit(stun_duration)
 		i.queue_free()
 		await get_tree().create_timer(stun_duration).timeout
 		
@@ -147,7 +161,7 @@ func reset_arena() -> void: ## Relies on Player node existing and being ready
 	
 	create_coin()
 	
-	player.initialize_player(assign_random_grid_space(player))
+	create_player()
 
 func initialize_grid() -> void:
 	current_max_height = grid_size.y - block_size

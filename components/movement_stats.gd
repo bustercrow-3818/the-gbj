@@ -10,7 +10,7 @@ var current_decel: float
 var current_speed_max: float
 
 @export_category("Jump")
-@export var jump_speed: float = 500.0
+@export var jump_speed: float = 1000
 @export var jump_time: float = 1.5
 @export var max_jumps: int = 1
 var current_jump_speed: float
@@ -19,7 +19,7 @@ var current_max_jumps: int
 var jumps_left: int = 1
 
 @export_category("Gravity")
-@export var coyote_time: float = 0.5
+@export var coyote_time: float = 0.05
 @export var fall_speed: float = 50.0
 @export var terminal_velocity: float = 1000.0
 var current_fall_speed: float

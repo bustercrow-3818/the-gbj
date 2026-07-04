@@ -44,6 +44,7 @@ shape = SubResource("RectangleShape2D_4mpmv")
 
 [node name="object_manager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1pcwl")]
 unique_name_in_owner = true
+player_scene = ExtResource("1_0vpvg")
 player = NodePath("../player")
 hazard_threshold = 2
 
