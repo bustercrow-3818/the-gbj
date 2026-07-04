@@ -282,6 +282,7 @@ unique_name_in_owner = true
 
 [node name="debug_msg" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -16.0
 offset_top = -64.0
 offset_right = 25.0

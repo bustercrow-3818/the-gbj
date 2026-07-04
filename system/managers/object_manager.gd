@@ -38,6 +38,7 @@ var occupied_grid_spaces: Array[Vector2]
 var skip_stun: bool = false
 
 func _ready() -> void:
+	initialize_arena()
 	initialize_grid()
 	check_max_height()
 	
@@ -51,10 +52,7 @@ func _ready() -> void:
 	
 	hazard_behavior.initialize_behavior()
 	
-	#await player.ready
-	#player.initialize_player(assign_random_grid_space(player))
-	
-	reset_arena()
+	create_player()
 
 func info_request(request_name: StringName, info: Dictionary) -> void:
 	match request_name:
@@ -112,12 +110,18 @@ func create_hazard(_qty: int = 1) -> void:
 	current_hazard_threshold = 0
 
 func create_player() -> void:
+	print("Function create_player() called")
+	
 	if player == null:
+		print("Attempting to spawn player...")
+		print("Var player = %s" % player)
 		var new_player: Player = spawn_object(player_scene)
 		
 		new_player.initialize_player(assign_random_grid_space(new_player))
 		
 		player = new_player
+	else:
+		print("Var player was not a null value. Spawning skipped.")
 
 func spawn_object(scene: PackedScene) -> Node2D:
 	var new_object: Node2D = scene.instantiate()
@@ -144,24 +148,29 @@ func check_max_height() -> void:
 			current_max_height -= block_size
 
 func reset_arena() -> void: ## Relies on Player node existing and being ready
-	if player != null:
-		player.queue_free()
+	clear_arena(true)
 	
+	initialize_arena()
+	initialize_grid()
+	
+	create_coin()
+	await get_tree().process_frame
+	create_player()
+
+func clear_arena(clear_player: bool = false) -> void:
+	if clear_player == true and player != null:
+		player.queue_free()
+		
+	for i in get_tree().get_nodes_in_group("game objects"):
+		i.queue_free()
+		await get_tree().create_timer(stun_duration).timeout
+
+func initialize_arena() -> void:
 	current_hazard_threshold = 0
 	grid_spaces.clear()
 	occupied_grid_spaces.clear()
 	live_blocks.clear()
 	hazard_behavior.initialize_behavior()
-	
-	for i in get_tree().get_nodes_in_group("game objects"):
-		i.queue_free()
-		await get_tree().create_timer(stun_duration).timeout
-		
-	initialize_grid()
-	
-	create_coin()
-	
-	create_player()
 
 func initialize_grid() -> void:
 	current_max_height = grid_size.y - block_size

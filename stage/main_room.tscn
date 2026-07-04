@@ -11,9 +11,8 @@ size = Vector2(840, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mpmv"]
 size = Vector2(100, 840)
 
-[node name="main_room" type="Node2D" node_paths=PackedStringArray("player", "object_manager", "ui_manager")]
+[node name="main_room" type="Node2D" node_paths=PackedStringArray("object_manager", "ui_manager")]
 script = ExtResource("1_u3o0j")
-player = NodePath("player")
 object_manager = NodePath("object_manager")
 ui_manager = NodePath("ui_manager")
 
@@ -42,14 +41,10 @@ shape = SubResource("RectangleShape2D_4mpmv")
 position = Vector2(690, 320)
 shape = SubResource("RectangleShape2D_4mpmv")
 
-[node name="object_manager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_1pcwl")]
+[node name="object_manager" parent="." instance=ExtResource("2_1pcwl")]
 unique_name_in_owner = true
 player_scene = ExtResource("1_0vpvg")
-player = NodePath("../player")
 hazard_threshold = 2
-
-[node name="player" parent="." instance=ExtResource("1_0vpvg")]
-break_time_duration = 2.0
 
 [node name="ui_manager" parent="." instance=ExtResource("4_ggi10")]
 plot_points_per_chapter = 5

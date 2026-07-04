@@ -24,6 +24,7 @@ func _ready() -> void:
 func connect_signals() -> void:
 	SignalBus.coin_collected.connect(update_plot_points)
 	SignalBus.player_dead.connect(show_menu.bind("game_over"))
+	SignalBus.game_start.connect(new_game)
 
 
 func update_plot_points(qty: int = 1) -> void:
@@ -31,10 +32,15 @@ func update_plot_points(qty: int = 1) -> void:
 	
 	SignalBus.plot_points_changed.emit(current_plot_points)
 	
+	if qty > 0:
+		check_round_end()
+
+func check_round_end() -> void:
 	if current_plot_points >= current_chapter * plot_points_per_chapter:
 		SignalBus.round_ended.emit()
 		current_chapter += 1
 		show_menu("news")
+	pass
 
 func show_menu(menu_name: StringName) -> void:
 	if menu_registry[menu_name] == null:
@@ -51,15 +57,11 @@ func check_news_progress() -> void:
 	
 	pass
 
-func restart_game() -> void:
-	update_plot_points(-current_plot_points)
-	
-	show_menu("hud")
-	SignalBus.game_start.emit()
-
 func quit_game() -> void:
 	get_tree().quit()
 
 func new_game() -> void:
-	
-	pass
+	current_plot_points = 0
+	SignalBus.plot_points_changed.emit(0)
+	if current_menu != menu_registry["hud"]:
+		show_menu("hud")

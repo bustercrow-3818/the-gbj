@@ -103,11 +103,9 @@ func fall(_data: Dictionary = {}) -> void:
 	horizontal_motion(direction)
 	
 	if player.is_on_floor():
-		print("On the floor. Switching to idle")
 		move_stats.jumps_left = move_stats.current_max_jumps
 		_change_state(states.IDLE, "idle")
 	elif Input.is_action_just_pressed("jump") and move_stats.jumps_left > 0:
-		print("Trying to double jump.")
 		start_jump()
 
 func dead(_data: Dictionary = {}) -> void:
@@ -135,7 +133,6 @@ func horizontal_motion(_dir: float) -> void:
 func gravity() -> void:
 	if player.velocity.y < move_stats.current_terminal_velocity:
 		player.velocity.y += move_stats.current_fall_speed
-		print("velocity = %s" % player.velocity)
 
 func start_stun(duration: float) -> void:
 	var previous_state: states = current_state
