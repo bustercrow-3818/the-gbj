@@ -156,6 +156,7 @@ func start_stun(duration: float) -> void:
 		_change_state(previous_state, previous_anim)
 
 func start_jump() -> void:
+	SFXBus.play_sound("jump", self)
 	player.velocity.y *= 0.5
 	player.velocity.y -= move_stats.current_jump_speed
 	move_stats.jumps_left -= 1

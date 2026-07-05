@@ -7,4 +7,5 @@ func _ready() -> void:
 func collect(body: Node2D) -> void:
 	if body is Player:
 		SignalBus.coin_collected.emit()
+		SFXBus.play_sound("coin_grab", body)
 		queue_free()
