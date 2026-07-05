@@ -52,8 +52,6 @@ func _ready() -> void:
 	SignalBus.info_request.connect(info_request)
 	
 	hazard_behavior.initialize_behavior()
-	
-	create_player()
 
 func info_request(request_name: StringName, info: Dictionary) -> void:
 	match request_name:
