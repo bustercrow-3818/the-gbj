@@ -79,7 +79,6 @@ func assign_random_grid_space(body: Node2D, solid: bool = false, thin_pool: bool
 func coin_collected() -> void:
 	current_hazard_threshold += 1
 	
-	stun_juice()
 	create_block()
 	create_coin()
 	if current_hazard_threshold == hazard_threshold:
@@ -159,7 +158,6 @@ func clear_arena(clear_player: bool = false) -> void:
 		
 	for i in get_tree().get_nodes_in_group("game objects"):
 		i.queue_free()
-		#await get_tree().create_timer(stun_duration).timeout
 
 func initialize_arena() -> void:
 	current_hazard_threshold = 0
