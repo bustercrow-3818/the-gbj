@@ -105,6 +105,7 @@ func fall(_data: Dictionary = {}) -> void:
 	
 	if player.is_on_floor():
 		move_stats.jumps_left = move_stats.current_max_jumps
+		SFXBus.play_sound("land", self)
 		_change_state(states.IDLE, "idle")
 	elif Input.is_action_just_pressed("jump") and move_stats.jumps_left > 0:
 		start_jump()

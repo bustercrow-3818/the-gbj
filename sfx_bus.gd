@@ -1,8 +1,9 @@
 extends Node
 
 const SOUNDS: Dictionary[StringName, AudioStream] = {
-	"coin_grab" : preload("res://assets/sfx/coin_grab.wav"),
-	"jump" : preload("res://assets/sfx/hup.mp3")
+	"coin_grab" : preload("res://assets/sfx/coin_sound.wav"),
+	"jump" : preload("res://assets/sfx/hup.mp3"),
+	"land" : preload("res://assets/sfx/138476__justinvoke__steptap.wav")
 }
 
 const pitch_var_min: float = 0.9
