@@ -49,7 +49,7 @@ shape = SubResource("RectangleShape2D_4mpmv")
 position = Vector2(690, 320)
 shape = SubResource("RectangleShape2D_4mpmv")
 
-[node name="object_manager" parent="." instance=ExtResource("2_1pcwl")]
+[node name="object_manager" parent="." groups=["object manager"] instance=ExtResource("2_1pcwl")]
 unique_name_in_owner = true
 player_scene = ExtResource("1_0vpvg")
 default_hazard_behavior = SubResource("Resource_4mpmv")

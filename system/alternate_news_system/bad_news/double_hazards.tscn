@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://l1g7paq6nuxx"]
+
+[ext_resource type="Script" uid="uid://ddg28gjys10ed" path="res://system/alternate_news_system/bad_news/double_hazards.gd" id="1_dqxc3"]
+
+[node name="double_hazards" type="Node"]
+script = ExtResource("1_dqxc3")
+button_text = "They're multiplying..."
+tooltip = "One more hazard spawns each time a hazard should appear"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

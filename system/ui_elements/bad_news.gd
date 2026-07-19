@@ -14,12 +14,10 @@ func good_news_chosen_first() -> void:
 
 func news_complete_check() -> void:
 	if last_news == true:
-		print("should be returning to game")
 		menu_exited.emit("hud")
 		SignalBus.game_resume.emit()
 	
 	else:
-		print("should be moving to good news")
 		SignalBus.bad_news_chosen.emit()
 		menu_exited.emit("good_news")
 		

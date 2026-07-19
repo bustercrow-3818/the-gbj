@@ -25,6 +25,7 @@ var current_max_height: float = 0
 @export_category("Algorithm Tuning")
 @export var thinning_strength: int = 3
 @export var hazard_threshold: int = 5
+@export var hazards_spawned: int = 1
 var current_hazard_threshold: int = 0
 
 @export_category("Juice Numbers")
@@ -80,7 +81,7 @@ func coin_collected() -> void:
 	create_block()
 	create_coin()
 	if current_hazard_threshold == hazard_threshold:
-		create_hazard()
+		create_hazard(hazards_spawned)
 
 func create_block(qty: int = 1) -> void:
 	for i in qty:
@@ -99,11 +100,12 @@ func create_coin(_qty: int = 1) -> void:
 	new_coin.global_position = random_grid_space
 
 func create_hazard(_qty: int = 1) -> void:
-	var new_hazard: Hazard = spawn_object(hazard_scene)
-	var random_grid_space: Vector2 = assign_random_grid_space(new_hazard, true)
-	
-	new_hazard.global_position = random_grid_space
-	new_hazard.behavior = hazard_behavior
+	for i in _qty:
+		var new_hazard: Hazard = spawn_object(hazard_scene)
+		var random_grid_space: Vector2 = assign_random_grid_space(new_hazard, true)
+		
+		new_hazard.global_position = random_grid_space
+		new_hazard.behavior = hazard_behavior
 	
 	current_hazard_threshold = 0
 

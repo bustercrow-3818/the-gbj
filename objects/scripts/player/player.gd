@@ -25,8 +25,8 @@ func _ready() -> void:
 	SignalBus.round_ended.connect(break_time_start)
 	SignalBus.game_resume.connect(break_time_end)
 	SignalBus.coin_collected.connect(on_coin_collected)
-	state_machine.move_stats = move_stats.duplicate()
-	state_machine.move_stats.initialize_values()
+	state_machine.move_stats = move_stats
+	move_stats.initialize_values()
 	
 	await get_tree().process_frame
 	

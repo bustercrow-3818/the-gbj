@@ -10,6 +10,8 @@ signal max_plot_armor_changed(new_max: int, current_value)
 signal plot_armor_changed(new_amount: int)
 signal plot_points_changed(new_amount: int)
 
+signal adjust_movement_stats(stat: StringName, adjustment: float)
+
 signal chapter_ended(new_chapter: int)
 
 signal good_news_chosen

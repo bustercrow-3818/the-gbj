@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcx4htrcbkh2p"]
+
+[ext_resource type="Script" uid="uid://isp5htaft820" path="res://system/alternate_news_system/good_news/double_jump.gd" id="1_6e2xn"]
+
+[node name="double_jump" type="Node"]
+script = ExtResource("1_6e2xn")
+button_text = "You can jump more now!"
+tooltip = "Gain one additional mid-air jump"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"
