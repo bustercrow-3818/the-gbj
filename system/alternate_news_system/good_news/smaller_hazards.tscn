@@ -4,6 +4,6 @@
 
 [node name="smaller_hazards" type="Node"]
 script = ExtResource("1_q2hkr")
-button_text = "Hazards are smaller now!"
-tooltip = "Hazard radius reduced by half"
+button_text = "There's more margin for error!"
+tooltip = "Hazard radius reduced 50%"
 metadata/_custom_type_script = "uid://2m83ou7km0eb"

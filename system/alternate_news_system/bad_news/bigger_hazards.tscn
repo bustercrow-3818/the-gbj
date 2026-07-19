@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcfi0kyn0ywui"]
+
+[ext_resource type="Script" uid="uid://c43errjo76aws" path="res://system/alternate_news_system/bad_news/bigger_hazards.gd" id="1_rowbp"]
+
+[node name="bigger_hazards" type="Node"]
+script = ExtResource("1_rowbp")
+button_text = "There's less room for mistakes..."
+tooltip = "Hazards increase in size by 25%"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

@@ -1,7 +1,5 @@
 extends NewsAlt
 
-@export var minimum_scale: Vector2 = Vector2(0.125, 0.125)
-
 func pickup_effect() -> void:
 	var info: Dictionary = {}
 	
@@ -9,10 +7,7 @@ func pickup_effect() -> void:
 	
 	var behavior: HazardBehavior = info["current_behavior"]
 	
-	if behavior.base_size -Vector2(0.25, 0.25) > minimum_scale:
-		behavior.base_size -= Vector2(0.25, 0.25)
-	else:
-		behavior.base_size = minimum_scale
+	behavior.base_size += Vector2(0.25, 0.25)
 	
 	for i in get_tree().get_nodes_in_group("hazards"):
 		var current: Hazard = i
