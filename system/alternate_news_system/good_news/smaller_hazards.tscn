@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bypoyf70p856p"]
+
+[ext_resource type="Script" uid="uid://b20rwm5i35kkv" path="res://system/alternate_news_system/good_news/smaller_hazards.gd" id="1_q2hkr"]
+
+[node name="smaller_hazards" type="Node"]
+script = ExtResource("1_q2hkr")
+button_text = "Hazards are smaller now!"
+tooltip = "Hazard radius reduced by half"
+metadata/_custom_type_script = "uid://2m83ou7km0eb"

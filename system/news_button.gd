@@ -12,6 +12,8 @@ func _ready() -> void:
 	SignalBus.round_ended.connect(randomly_assign_news)
 
 func randomly_assign_news() -> void:
+	if player == null:
+		player = get_tree().get_first_node_in_group("player")
 	if news != null:
 		news.queue_free()
 	news = pool.news.pick_random().instantiate()
@@ -24,7 +26,9 @@ func set_button_text() -> void:
 	tooltip_text = news.tooltip
 
 func _pressed() -> void:
+	news.reparent(player)
 	news.pickup_effect()
+	news = null
 
 func set_hazard_reference(behavior: HazardBehavior) -> void:
 	current_behavior = behavior
