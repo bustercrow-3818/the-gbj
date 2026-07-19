@@ -2,6 +2,8 @@ extends Button
 class_name GoodNewsButton
 
 @export var pool: NewsPool
+@export var themes: Array[Theme]
+@export var max_rotation_degrees: float = 3
 
 var news: NewsAlt
 var player: Player
@@ -16,6 +18,9 @@ func randomly_assign_news() -> void:
 		player = get_tree().get_first_node_in_group("player")
 	if news != null:
 		news.queue_free()
+	
+	set_visual_variety()
+	
 	news = pool.news.pick_random().instantiate()
 	add_child(news)
 	news.initialize_news()
@@ -32,3 +37,7 @@ func _pressed() -> void:
 
 func set_hazard_reference(behavior: HazardBehavior) -> void:
 	current_behavior = behavior
+
+func set_visual_variety() -> void:
+	theme = themes.pick_random()
+	rotation_degrees += randf_range(-max_rotation_degrees, max_rotation_degrees)

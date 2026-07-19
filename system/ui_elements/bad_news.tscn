@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3q18d8wlggjk"]
+[gd_scene load_steps=12 format=3 uid="uid://b3q18d8wlggjk"]
 
 [ext_resource type="Script" uid="uid://cevjodihjvb7i" path="res://system/ui_elements/bad_news.gd" id="1_5cbio"]
 [ext_resource type="Script" uid="uid://in4gygc0qbur" path="res://system/news_button.gd" id="1_g3k6y"]
 [ext_resource type="Resource" uid="uid://cl222cwvieoas" path="res://resources/news/pools/all_bad_news.tres" id="2_5cbio"]
+[ext_resource type="Theme" uid="uid://bt81p1qslkbwa" path="res://assets/themes/white_paper_theme.tres" id="2_t2e7m"]
+[ext_resource type="Theme" uid="uid://cs2od3cu0kstr" path="res://assets/themes/handwritten_label_theme.tres" id="3_eq4s4"]
+[ext_resource type="Theme" uid="uid://d2475p4wyarfb" path="res://assets/themes/button_blue.tres" id="4_rstdg"]
+[ext_resource type="Theme" uid="uid://ctxfi8sn3xma2" path="res://assets/themes/button_green.tres" id="5_t2e7m"]
+[ext_resource type="Theme" uid="uid://defxriwk5u7al" path="res://assets/themes/button_orange.tres" id="6_eq4s4"]
+[ext_resource type="Theme" uid="uid://clshy5rr5266r" path="res://assets/themes/button_purple.tres" id="7_o0247"]
+[ext_resource type="Theme" uid="uid://cxcmkdf15i1qg" path="res://assets/themes/button_red.tres" id="8_u04v0"]
+[ext_resource type="Theme" uid="uid://b6211cbcslv84" path="res://assets/themes/button_yellow.tres" id="9_fjkx0"]
 
 [node name="bad_news" type="Control"]
 layout_mode = 3
@@ -24,12 +32,14 @@ metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 layout_mode = 0
 offset_right = 296.0
 offset_bottom = 81.0
+theme = ExtResource("2_t2e7m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 layout_mode = 2
 
 [node name="bad_news_header" type="Label" parent="panel/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_eq4s4")
 text = "The bad news is..."
 horizontal_alignment = 1
 
@@ -51,6 +61,7 @@ text = "The fans hate you"
 autowrap_mode = 2
 script = ExtResource("1_g3k6y")
 pool = ExtResource("2_5cbio")
+themes = Array[Theme]([ExtResource("4_rstdg"), ExtResource("5_t2e7m"), ExtResource("6_eq4s4"), ExtResource("7_o0247"), ExtResource("8_u04v0"), ExtResource("9_fjkx0")])
 
 [node name="bad_news_2" type="Button" parent="panel/VBoxContainer/bad_news_choices" groups=["bad_news"]]
 custom_minimum_size = Vector2(96, 0)
@@ -66,6 +77,7 @@ text = "The writer hates you"
 autowrap_mode = 2
 script = ExtResource("1_g3k6y")
 pool = ExtResource("2_5cbio")
+themes = Array[Theme]([ExtResource("4_rstdg"), ExtResource("5_t2e7m"), ExtResource("6_eq4s4"), ExtResource("7_o0247"), ExtResource("8_u04v0"), ExtResource("9_fjkx0")])
 
 [node name="bad_news_3" type="Button" parent="panel/VBoxContainer/bad_news_choices" groups=["bad_news"]]
 custom_minimum_size = Vector2(96, 0)
@@ -81,3 +93,4 @@ text = "Something else bad"
 autowrap_mode = 2
 script = ExtResource("1_g3k6y")
 pool = ExtResource("2_5cbio")
+themes = Array[Theme]([ExtResource("4_rstdg"), ExtResource("5_t2e7m"), ExtResource("6_eq4s4"), ExtResource("7_o0247"), ExtResource("8_u04v0"), ExtResource("9_fjkx0")])

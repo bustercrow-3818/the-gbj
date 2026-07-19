@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://5wassn4xo12g"]
+[gd_scene load_steps=12 format=3 uid="uid://5wassn4xo12g"]
 
 [ext_resource type="Script" uid="uid://in4gygc0qbur" path="res://system/news_button.gd" id="1_0oewk"]
 [ext_resource type="Script" uid="uid://c55euwiy3gmdh" path="res://system/ui_elements/good_news.gd" id="1_bqc48"]
 [ext_resource type="Resource" uid="uid://crl0vwxcttwla" path="res://resources/news/pools/all_good_news.tres" id="2_bqc48"]
+[ext_resource type="Theme" uid="uid://bt81p1qslkbwa" path="res://assets/themes/white_paper_theme.tres" id="2_j8cu4"]
+[ext_resource type="Theme" uid="uid://cs2od3cu0kstr" path="res://assets/themes/handwritten_label_theme.tres" id="3_xfc2a"]
+[ext_resource type="Theme" uid="uid://cxcmkdf15i1qg" path="res://assets/themes/button_red.tres" id="4_xfc2a"]
+[ext_resource type="Theme" uid="uid://ctxfi8sn3xma2" path="res://assets/themes/button_green.tres" id="7_48w05"]
+[ext_resource type="Theme" uid="uid://d2475p4wyarfb" path="res://assets/themes/button_blue.tres" id="8_d1gly"]
+[ext_resource type="Theme" uid="uid://defxriwk5u7al" path="res://assets/themes/button_orange.tres" id="9_v7fus"]
+[ext_resource type="Theme" uid="uid://clshy5rr5266r" path="res://assets/themes/button_purple.tres" id="10_4dyg7"]
+[ext_resource type="Theme" uid="uid://b6211cbcslv84" path="res://assets/themes/button_yellow.tres" id="11_kxt6e"]
 
 [node name="good_news" type="Control" node_paths=PackedStringArray("initial_focus")]
 layout_mode = 3
@@ -25,12 +33,14 @@ metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 layout_mode = 0
 offset_right = 296.0
 offset_bottom = 81.0
+theme = ExtResource("2_j8cu4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 layout_mode = 2
 
 [node name="good_news_header" type="Label" parent="panel/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_xfc2a")
 text = "The good news is..."
 horizontal_alignment = 1
 
@@ -39,7 +49,6 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="good_news_1" type="Button" parent="panel/VBoxContainer/good_news_choices" groups=["good_news"]]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -49,13 +58,14 @@ focus_neighbor_right = NodePath("../good_news_2")
 focus_next = NodePath("../good_news_2")
 focus_previous = NodePath("../good_news_3")
 focus_behavior_recursive = 2
+theme = ExtResource("4_xfc2a")
 text = "The fans like you"
 autowrap_mode = 2
 script = ExtResource("1_0oewk")
 pool = ExtResource("2_bqc48")
+themes = Array[Theme]([ExtResource("8_d1gly"), ExtResource("7_48w05"), ExtResource("9_v7fus"), ExtResource("10_4dyg7"), ExtResource("4_xfc2a"), ExtResource("11_kxt6e")])
 
 [node name="good_news_2" type="Button" parent="panel/VBoxContainer/good_news_choices" groups=["good_news"]]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -65,13 +75,14 @@ focus_neighbor_right = NodePath("../good_news_3")
 focus_next = NodePath("../good_news_3")
 focus_previous = NodePath("../good_news_1")
 focus_behavior_recursive = 2
+theme = ExtResource("7_48w05")
 text = "The writer likes you"
 autowrap_mode = 2
 script = ExtResource("1_0oewk")
 pool = ExtResource("2_bqc48")
+themes = Array[Theme]([ExtResource("8_d1gly"), ExtResource("7_48w05"), ExtResource("9_v7fus"), ExtResource("10_4dyg7"), ExtResource("4_xfc2a"), ExtResource("11_kxt6e")])
 
 [node name="good_news_3" type="Button" parent="panel/VBoxContainer/good_news_choices" groups=["good_news"]]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -81,7 +92,9 @@ focus_neighbor_right = NodePath("../good_news_1")
 focus_next = NodePath("../good_news_1")
 focus_previous = NodePath("../good_news_2")
 focus_behavior_recursive = 2
+theme = ExtResource("8_d1gly")
 text = "Something else good"
 autowrap_mode = 2
 script = ExtResource("1_0oewk")
 pool = ExtResource("2_bqc48")
+themes = Array[Theme]([ExtResource("8_d1gly"), ExtResource("7_48w05"), ExtResource("9_v7fus"), ExtResource("10_4dyg7"), ExtResource("4_xfc2a"), ExtResource("11_kxt6e")])

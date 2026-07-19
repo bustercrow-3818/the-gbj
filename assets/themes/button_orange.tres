@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://defxriwk5u7al"]
+
+[ext_resource type="FontFile" uid="uid://cla4trkb0f0s" path="res://assets/font/IndieFlower-Regular.ttf" id="1_k5eu4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8kmd"]
+bg_color = Color(1, 0.49019608, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6b6l"]
+bg_color = Color(1, 0.39215687, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulynv"]
+bg_color = Color(0.88235295, 0.29411766, 0, 1)
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 22
+Button/fonts/font = ExtResource("1_k5eu4")
+Button/styles/hover = SubResource("StyleBoxFlat_l8kmd")
+Button/styles/normal = SubResource("StyleBoxFlat_d6b6l")
+Button/styles/pressed = SubResource("StyleBoxFlat_ulynv")

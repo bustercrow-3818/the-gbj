@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cs2od3cu0kstr"]
+
+[ext_resource type="FontFile" uid="uid://cla4trkb0f0s" path="res://assets/font/IndieFlower-Regular.ttf" id="1_wmbgv"]
+
+[resource]
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/font_sizes/font_size = 22
+Label/fonts/font = ExtResource("1_wmbgv")
