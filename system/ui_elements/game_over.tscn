@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmct3qrvsaior"]
+[gd_scene load_steps=5 format=3 uid="uid://cmct3qrvsaior"]
 
 [ext_resource type="Script" uid="uid://dpnp37kbgk2un" path="res://system/ui_elements/game_over.gd" id="1_4ccei"]
+[ext_resource type="Theme" uid="uid://bt81p1qslkbwa" path="res://assets/themes/white_paper_theme.tres" id="2_f5ebe"]
+[ext_resource type="Theme" uid="uid://cs2od3cu0kstr" path="res://assets/themes/handwritten_label_theme.tres" id="3_jihsa"]
+[ext_resource type="Theme" uid="uid://73yybcqe05uh" path="res://assets/themes/button_white_oval.tres" id="4_nt0be"]
 
 [node name="game_over" type="Control" node_paths=PackedStringArray("initial_focus")]
 layout_mode = 3
@@ -34,31 +37,38 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("2_f5ebe")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 layout_mode = 2
 
 [node name="score_header" type="Label" parent="panel/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_jihsa")
 text = "Final Score:"
 horizontal_alignment = 1
 
 [node name="final_score" type="Label" parent="panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("3_jihsa")
 text = "0"
 horizontal_alignment = 1
 
 [node name="restart_button" type="Button" parent="panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../quit_button")
+theme = ExtResource("4_nt0be")
 text = "Restart"
 
 [node name="quit_button" type="Button" parent="panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../restart_button")
+theme = ExtResource("4_nt0be")
 text = "Quit"

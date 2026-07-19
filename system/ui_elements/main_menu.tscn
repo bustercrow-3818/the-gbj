@@ -1,80 +1,78 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2kn5rhmm1p8v"]
+[gd_scene load_steps=7 format=3 uid="uid://c2kn5rhmm1p8v"]
 
 [ext_resource type="Script" uid="uid://bats7eclo4p5y" path="res://system/ui_elements/main_menu.gd" id="1_wpdra"]
+[ext_resource type="Theme" uid="uid://bt81p1qslkbwa" path="res://assets/themes/white_paper_theme.tres" id="2_61bo7"]
+[ext_resource type="Theme" uid="uid://cs2od3cu0kstr" path="res://assets/themes/handwritten_label_theme.tres" id="3_k4oop"]
+[ext_resource type="Theme" uid="uid://ctxfi8sn3xma2" path="res://assets/themes/button_green.tres" id="4_vytn0"]
+[ext_resource type="Theme" uid="uid://d2475p4wyarfb" path="res://assets/themes/button_blue.tres" id="5_xrcb7"]
+[ext_resource type="Theme" uid="uid://cxcmkdf15i1qg" path="res://assets/themes/button_red.tres" id="6_lmegy"]
 
 [node name="main_menu" type="Control" node_paths=PackedStringArray("play_game", "settigns", "exit", "initial_focus")]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wpdra")
-play_game = NodePath("VBoxContainer/play_game")
-settigns = NodePath("VBoxContainer/settings")
-exit = NodePath("VBoxContainer/exit_game")
-initial_focus = NodePath("VBoxContainer/play_game")
+play_game = NodePath("PanelContainer/VBoxContainer2/VBoxContainer/play_game")
+settigns = NodePath("PanelContainer/VBoxContainer2/VBoxContainer/settings")
+exit = NodePath("PanelContainer/VBoxContainer2/VBoxContainer/exit_game")
+initial_focus = NodePath("PanelContainer/VBoxContainer2/VBoxContainer/play_game")
 metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 
-[node name="game_title" type="Label" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -95.5
-offset_right = 20.0
-offset_bottom = -72.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_61bo7")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="game_title" type="Label" parent="PanelContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("3_k4oop")
 text = "title"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -162.0
-offset_top = 12.75
-offset_right = 162.0
-offset_bottom = 211.25
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
 
-[node name="play_game" type="Button" parent="VBoxContainer"]
+[node name="play_game" type="Button" parent="PanelContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../exit_game")
 focus_neighbor_bottom = NodePath("../settings")
 focus_next = NodePath("../settings")
 focus_previous = NodePath("../exit_game")
+theme = ExtResource("4_vytn0")
 text = "Play"
 
-[node name="settings" type="Button" parent="VBoxContainer"]
+[node name="settings" type="Button" parent="PanelContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../play_game")
 focus_neighbor_bottom = NodePath("../exit_game")
 focus_next = NodePath("../exit_game")
 focus_previous = NodePath("../play_game")
+theme = ExtResource("5_xrcb7")
 disabled = true
 text = "Settings"
 
-[node name="exit_game" type="Button" parent="VBoxContainer"]
+[node name="exit_game" type="Button" parent="PanelContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_neighbor_top = NodePath("../settings")
 focus_neighbor_bottom = NodePath("../play_game")
 focus_next = NodePath("../play_game")
 focus_previous = NodePath("../settings")
+theme = ExtResource("6_lmegy")
 text = "Quit"
