@@ -8,6 +8,9 @@ anchors_preset = 0
 offset_right = 102.0
 offset_bottom = 50.0
 script = ExtResource("1_57e1y")
+plot_armor_prefix = "Plot Armor: "
+plot_armor_suffix = " / "
+plot_points_prefix = "Score: "
 metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 
 [node name="panel" type="PanelContainer" parent="."]

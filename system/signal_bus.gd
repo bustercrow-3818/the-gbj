@@ -6,6 +6,7 @@ signal player_dead
 signal player_stun(duration: float)
 signal player_ready
 
+signal max_plot_armor_changed(new_max: int, current_value)
 signal plot_armor_changed(new_amount: int)
 signal plot_points_changed(new_amount: int)
 

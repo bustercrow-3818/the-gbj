@@ -116,7 +116,6 @@ func dead(_data: Dictionary = {}) -> void:
 
 func stunned(_data: Dictionary = {}) -> void:
 	gravity()
-	pass
 
 func paused() -> void:
 	

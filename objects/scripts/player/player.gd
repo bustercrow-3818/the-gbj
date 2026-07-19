@@ -27,6 +27,10 @@ func _ready() -> void:
 	SignalBus.coin_collected.connect(on_coin_collected)
 	state_machine.move_stats = move_stats.duplicate()
 	state_machine.move_stats.initialize_values()
+	
+	await get_tree().process_frame
+	
+	SignalBus.max_plot_armor_changed.emit(plot_armor.current_max_plot_armor, plot_armor.current_plot_armor)
 
 func _process(_delta: float) -> void:
 	%debug_msg.text = str(state_machine.states.find_key(state_machine.current_state))
