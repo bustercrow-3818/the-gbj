@@ -3,13 +3,14 @@ class_name GoodNewsButton
 
 @export var pool: NewsPool
 @export var themes: Array[Theme]
-@export var max_rotation_degrees: float = 3
+@export var max_rotation_degrees: float = 180
 
 var news: NewsAlt
 var player: Player
 var current_behavior: HazardBehavior
 
 func _ready() -> void:
+	pivot_offset = size / 2
 	player = get_tree().get_first_node_in_group("player")
 	SignalBus.round_ended.connect(randomly_assign_news)
 

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://y485lp1as0aj"]
+[gd_scene load_steps=6 format=3 uid="uid://y485lp1as0aj"]
 
 [ext_resource type="Script" uid="uid://cvoc62lu7j2d6" path="res://system/ui_elements/news.gd" id="1_um8y8"]
+[ext_resource type="Theme" uid="uid://bt81p1qslkbwa" path="res://assets/themes/white_paper_theme.tres" id="2_kc63o"]
+[ext_resource type="Theme" uid="uid://cs2od3cu0kstr" path="res://assets/themes/handwritten_label_theme.tres" id="3_ld3b3"]
+[ext_resource type="Theme" uid="uid://ctxfi8sn3xma2" path="res://assets/themes/button_green.tres" id="4_chcic"]
+[ext_resource type="Theme" uid="uid://cxcmkdf15i1qg" path="res://assets/themes/button_red.tres" id="5_jt0pi"]
 
 [node name="news" type="Control" node_paths=PackedStringArray("initial_focus")]
 layout_mode = 3
@@ -23,6 +27,7 @@ metadata/_custom_type_script = "uid://ue13ljkj4yb1"
 layout_mode = 0
 offset_right = 264.0
 offset_bottom = 181.0
+theme = ExtResource("2_kc63o")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="panel"]
 layout_mode = 2
@@ -30,6 +35,7 @@ layout_mode = 2
 [node name="news_header" type="Label" parent="panel/VBoxContainer"]
 custom_minimum_size = Vector2(264, 0)
 layout_mode = 2
+theme = ExtResource("3_ld3b3")
 text = "Do you want the good news or the bad news?"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -44,6 +50,7 @@ custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_right = NodePath("../bad_news_first")
+theme = ExtResource("4_chcic")
 text = "The Good News"
 
 [node name="bad_news_first" type="Button" parent="panel/VBoxContainer/news_choices"]
@@ -52,4 +59,5 @@ custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 size_flags_horizontal = 3
 focus_neighbor_left = NodePath("../good_news_first")
+theme = ExtResource("5_jt0pi")
 text = "The Bad News"
